@@ -1,11 +1,13 @@
 import React from 'react';
 import AppLayout from '../components/AppLayout';
 
-const Index = () => {
+
+const Home = () => {
+
   return(
     <AppLayout>   
     </AppLayout>
   );
 }
 
-export default Index;
+export default Home;

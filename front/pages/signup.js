@@ -1,6 +1,6 @@
 import React, {useState, useCallback} from "react";
 import { Form, Modal, Input, Card, Image, Checkbox, Divider, Button, Typography } from 'antd';
-import useInput from '../hooks/useInput';
+import useInput from './hooks/useInput';
 import Footer from '../components/Footer';
 import Link from "next/link";
 import { 
@@ -8,14 +8,19 @@ import {
   ExclamationCircleOutlined,
   GoogleSquareFilled
 } from '@ant-design/icons';
+import { SIGN_UP_REQUEST } from '../reducers/user';
+import { useDispatch, useSelector } from 'react-redux';
+
 
 const Signup = () => {
+  const dispatch = useDispatch();
   const [email, onChangeEmail ] = useInput('');
   const [ nickname, onChangeNickname ] = useInput('');
   const [ password, onChangePassword ] = useInput('');
   const [ passwordError, setPasswordError ] = useState(false);
   const [ passwordCheck, setPasswordCheck ] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const { signUpLoading } = useSelector((state) => state.user);
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -34,13 +39,13 @@ const Signup = () => {
 
   const [termError, setTermError] = useState(false);
   const [term, setTerm] = useState(false);
+  
   const onChangeTerm = useCallback((e) => {
     setTermError(false);
     setTerm(e.target.checked);
   }, []);
   
-  // 위에서 체크 해줬지만 submit 할떄도 다시한번 체크해줌. 
-  // userInput은 어려번 체크할수록 좋음
+
   const onSubmit = useCallback(() => {
     if (password !== passwordCheck) {
       return setPasswordError(true);
@@ -49,7 +54,17 @@ const Signup = () => {
       return setTermError(true);
     }
     console.log(email, nickname, password);
-  })
+    
+    dispatch({
+      type: SIGN_UP_REQUEST,
+      data: {
+        email,
+        password,
+        nickname,
+      },
+    });
+    
+  }, [email, password, passwordCheck, term]);
 
   return (
     <>
@@ -90,7 +105,7 @@ const Signup = () => {
           {termError && <Typography style={{ color: '#d9686e', fontSize: '0.8rem', marginTop: '0.2rem', fontWeight: 500 }}><ExclamationCircleOutlined /> You must agree with BiBi's Conditions.</Typography>}
         </div>
         <div style={{ marginTop: 10 }}>
-          <Button type="primary" htmlType="submit" style={{ width: '100%', backgroundColor: '#f5e264', color: '#3348a3', boxShadow: 'none', letterSpacing: '0.05em'}} >Join In</Button>
+          <Button type="primary" htmlType="submit"  loading={signUpLoading} style={{ width: '100%', backgroundColor: '#f5e264', color: '#3348a3', boxShadow: 'none', letterSpacing: '0.05em'}} >Join In</Button>
         </div>
         <div style={{ marginTop: 10 }}>
         <Link href='/'><Button type="primary" style={{width: '100%', backgroundColor: '#e6e6e6', color: '#616263', boxShadow: 'none', letterSpacing: '0.05em'}} >Cancel</Button></Link>

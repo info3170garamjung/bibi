@@ -1,0 +1,23 @@
+/* styles.css */
+
+.ant-table-wrapper .ant-table-pagination-right {
+  justify-content: center;
+}
+
+.ant-table-wrapper .ant-table-pagination.ant-pagination {
+  margin-top: 4rem;
+}
+
+.menu-container {
+  position: relative;
+}
+
+.menu-items {
+  position: absolute;
+  left: -200px; /* 초기에 왼쪽으로 숨김 */
+  transition: left 1.5s;
+}
+
+.menu-container:hover .menu-items {
+  left: 0; /* 마우스가 올라갔을 때 오른쪽으로 슬라이딩 */
+}

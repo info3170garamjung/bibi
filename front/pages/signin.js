@@ -1,18 +1,26 @@
-import React, {useState, useCallback} from "react";
-import { Form, Modal, Input, Card, Image, Checkbox, Divider, Button, Typography } from 'antd';
-import useInput from '../hooks/useInput';
+import React, { useCallback} from "react";
+import { Form, Input, Card, Image, Divider, Button, Typography } from 'antd';
+import useInput from './hooks/useInput';
 import Footer from '../components/Footer';
 import Link from "next/link";
 import { 
   GoogleSquareFilled
 } from '@ant-design/icons';
+import { useDispatch, useSelector } from 'react-redux';
+import { loginRequestAction } from '../reducers/user';
 
 const Signin = () => {
+  const dispatch = useDispatch();
+  const { logInLoading } = useSelector((state) => state.user);
+
   const [email, onChangeEmail ] = useInput('');
   const [ password, onChangePassword ] = useInput('');
-
+  
   const onSubmitForm = useCallback(() => {
     console.log(email, password);
+    dispatch(loginRequestAction(
+      {email, password}
+    ));
   }, [email, password])
 
   return (
@@ -30,7 +38,7 @@ const Signin = () => {
         <Input style={{borderWidth: '2px' }} name="user-password" type="password" value={password} onChange={onChangePassword} required />
       </div>
         <div style={{ marginTop: 10 }}>
-          <Button type="primary" htmlType="submit" style={{ width: '100%', backgroundColor: '#f5e264', color: '#3348a3', boxShadow: 'none', letterSpacing: '0.05em'}} >Sign In</Button>
+        <Button type="primary" htmlType="submit" loading={logInLoading} style={{ width: '100%', backgroundColor: '#f5e264', color: '#3348a3', boxShadow: 'none', letterSpacing: '0.05em'}} >Sign In</Button>
         </div>
         <div style={{ marginTop: 10 }}>
         <Link href='/'><Button type="primary" style={{width: '100%', backgroundColor: '#e6e6e6', color: '#616263', boxShadow: 'none', letterSpacing: '0.05em'}} >Cancel</Button></Link>

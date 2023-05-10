@@ -1,53 +1,75 @@
 
 import React, {useState} from "react";
 import { 
-  CoffeeOutlined, 
-  CrownOutlined ,  
-  FolderOpenOutlined,
+  ReadOutlined,
+  MenuOutlined,
+  WalletOutlined
 } from '@ant-design/icons';
+import { useRouter } from 'next/router';
 
 import { Menu } from 'antd';
 const { SubMenu } = Menu;
+import Link from 'next/link';
+import { categories } from './categories';
+const Category = ({ onClick }) => {
+  
+  const router = useRouter();
+  const [ isHovered, setIsHovered ] = useState(false);
 
-
-const Category = () => {
-  const onClick = (e) => {
-    console.log('click ', e);
+  const handleMouseEnter = () => {
+    setIsHovered(true);
   };
 
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+  }
+
+  const handleCategoryClick = (category) => {
+
+    router.push(`/category/${category.title}`);
+  };
+
+  const [openKeys, setOpenKeys] = useState(['sub2']); // 기본적으로 sub2가 열려있게 설정
+
+  const handleMenuOpenChange = (keys) => {
+    setOpenKeys(keys);
+  };
 
   return (
     <>
+    <div className="menu-container">
+    <MenuOutlined style={{fontSize: '1.3rem'}} onMouseEnter={handleMouseEnter} />
+      {isHovered && (
+        <div className="menu-items">
       <Menu
         onClick={onClick}
+        openKeys={openKeys} // openKeys prop 추가
+        onOpenChange={handleMenuOpenChange} // onOpenChange prop 추가
         defaultSelectedKeys={['1']}
         defaultOpenKeys={['sub1']}
         mode="inline"
       >
-        <SubMenu key="sub1" icon={<CrownOutlined />} title="My Work">
-          <Menu.Item key="1">Portfolio</Menu.Item>
-        </SubMenu>
-        <SubMenu key="sub2" icon={<FolderOpenOutlined />} title="Category">
-          <Menu.Item key="2">View All</Menu.Item>
-          <SubMenu key="sub3" title="Study">
-            <Menu.Item key="3">JavaScript</Menu.Item>
-            <Menu.Item key="4">TypeScript</Menu.Item>
-            <Menu.Item key="5">React</Menu.Item>
-            <Menu.Item key="6">NodeJS</Menu.Item>
-            <Menu.Item key="7">GIT</Menu.Item>
-            <Menu.Item key="8">Cloud</Menu.Item>
-            <Menu.Item key="9">Leetcode</Menu.Item>
-            <Menu.Item key="10">Database</Menu.Item>
-          </SubMenu>
+        <Menu.Item key="portfolio" icon={<WalletOutlined />}>Portfolio</Menu.Item>
+        <Menu.Divider />
+        <SubMenu key="sub2" icon={<ReadOutlined />} title="My Study">
+          {categories.map(category => (
+            <Menu.Item key={category.key} onClick={() => handleCategoryClick(category)}>
+              {category.href ? (
+                <Link href={category.href}>{category.title.toLowerCase()}</Link>
+              ) : category.title.toLowerCase()}
+            </Menu.Item>
+          ))}
         </SubMenu>
         <Menu.Divider />
-        <SubMenu key="sub4" icon={<CoffeeOutlined />} title="Daily Life">
-          <Menu.Item key="11">Restaurant Review</Menu.Item>
-          <Menu.Item key="12">Daily Record</Menu.Item>
-        </SubMenu>
       </Menu>
+      </div>
+      )}
+    </div>
     </>
   );
 };
 
 export default Category;
+
+
+
