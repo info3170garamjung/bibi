@@ -15,7 +15,6 @@ const CategoryTitle = () => {
   const { title } = router.query;
   const { mainPosts } = useSelector((state) => state.post);
 
-   // 해당 category와 일치하는 게시글만 필터링합니다.
    const filteredPosts = mainPosts.filter((post) => post.category === title);
 
   const pagination = {
@@ -28,12 +27,13 @@ const CategoryTitle = () => {
       dataIndex: 'category',
       key: 'category',
     },
+    /*
     {
       title: 'ID',
       dataIndex: 'id',
       key: 'id',
     },
-
+*/
     {
       title: 'Title',
       dataIndex: 'title',

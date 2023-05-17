@@ -1,8 +1,8 @@
 
+
 import React, {useState} from "react";
 import { 
   ReadOutlined,
-  MenuOutlined,
   WalletOutlined
 } from '@ant-design/icons';
 import { useRouter } from 'next/router';
@@ -14,15 +14,6 @@ import { categories } from './categories';
 const Category = ({ onClick }) => {
   
   const router = useRouter();
-  const [ isHovered, setIsHovered ] = useState(false);
-
-  const handleMouseEnter = () => {
-    setIsHovered(true);
-  };
-
-  const handleMouseLeave = () => {
-    setIsHovered(false);
-  }
 
   const handleCategoryClick = (category) => {
 
@@ -38,9 +29,6 @@ const Category = ({ onClick }) => {
   return (
     <>
     <div className="menu-container">
-    <MenuOutlined style={{fontSize: '1.3rem'}} onMouseEnter={handleMouseEnter} />
-      {isHovered && (
-        <div className="menu-items">
       <Menu
         onClick={onClick}
         openKeys={openKeys} // openKeys prop 추가
@@ -63,13 +51,8 @@ const Category = ({ onClick }) => {
         <Menu.Divider />
       </Menu>
       </div>
-      )}
-    </div>
     </>
   );
 };
 
 export default Category;
-
-
-

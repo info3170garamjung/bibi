@@ -1,6 +1,4 @@
 
-
-
 export const initialState = {
   logInLoading: false, // 로그인 시도중
   logInDone: false,
@@ -12,7 +10,8 @@ export const initialState = {
   signUpDone: false,
   signUpError: null,
   me: null,
-  signUpData: {},
+  //me: {},
+ signUpData: [],
   loginData: {},
 }
 
@@ -28,12 +27,18 @@ export const LOG_OUT_REQUEST = 'LOG_OUT_REQUEST';
 export const LOG_OUT_SUCCESS = 'LOG_OUT_SUCCESS';
 export const LOG_OUT_FAILURE = 'LOG_OUT_FAILURE';
 
+
+export const REMOVE_POST_OF_ME = 'REMOVE_POST_OF_ME';
+export const ADD_POST_TO_ME = 'ADD_POST_TO_ME';
+/*
 const dummyUser = (data) => ({
   ...data,
   nickname: 'bibi',
   id: 1,
   Posts: [],
 });
+*/
+
 
 
 
@@ -60,14 +65,37 @@ export default (state = initialState, action) => {
         logInError: null,
         logInDone: false
       }; 
+case LOG_IN_SUCCESS: 
+  const loggedInUser = state.signUpData.find(user => user.email === action.data.email && user.password === action.data.password); 
+  if (loggedInUser) {
+    const user = {
+      email: loggedInUser.email,
+      password: loggedInUser.password,
+      nickname: loggedInUser.nickname,
+      id: loggedInUser.id,
+    };
+    console.log('user', user);
+    console.log('me', state.me);
     
-    case LOG_IN_SUCCESS: 
+    const newState = {
+      ...state,
+      logInLoading: false,
+      logInDone: true,
+      me: user,
+    };
+
+    console.log('newState.me', newState.me);
+    console.log('newState.me.id', newState.me.id);
+
+    return newState;
+    } else {
       return {
         ...state,
-        logInLoading: false,
-        logInDone: true,
-        me: dummyUser(action.data),
-      }; 
+      logInLoading: false,
+      logInDone: false,
+      logInError: '로그인에 실패하였습니다',
+      };
+    }
     
     case LOG_IN_FAILURE: 
       return {
@@ -118,7 +146,9 @@ export default (state = initialState, action) => {
         ...state,
         signUpLoading: false,
         signUpDone: true,
-      };
+       signUpData: [{ ...action.data }]
+  
+    };
 
       case SIGN_UP_FAILURE: 
       return {
@@ -126,7 +156,14 @@ export default (state = initialState, action) => {
         signUpLoading: false,
         signUpError: action.error,
       };
-    
+        case ADD_POST_TO_ME:
+          return {
+            ...state,
+            me: {
+              ...state.me,
+              Posts: [{ id: action.data.id, ...action.data }],
+            },
+          };
     default: {
       return {
         ...state,

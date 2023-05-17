@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Col, Row, Space } from 'antd';
 import Category from './Category';
@@ -28,23 +29,21 @@ const AppLayout = ({ children }) => {
     <>
     <Header />
     <Row gutter={10}>
-      <Col xs={24} md={4}>
+      <Col xs={24} md={4}> 
+      <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
+      {me && !showPostForm && (<PostButton onClick={handleClick} />)}
+      </div>
 
       <Category/>
       </Col>
       <Col xs={24} md={20}>
-      <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
-      {me && !showPostForm && (<PostButton onClick={handleClick} />)}
-      </div>
         {!showPostForm && children}
         {showPostForm && <PostForm  />} 
       </Col>
     </Row>
-     <Footer />
     </>
   );
 }
 
 export default AppLayout;
-
 

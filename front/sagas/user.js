@@ -1,5 +1,7 @@
 import { all, fork, put, delay, takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
+import shortId from 'shortid';
+
 import {
   LOG_IN_FAILURE,
   LOG_IN_REQUEST,
@@ -57,12 +59,15 @@ function signUpAPI() {
   return axios.post('/api/signUp');
 }
 
-function* signUp() {
+function* signUp(action) {
   try {
     // const result = yield call(signUpAPI);
+    const id = shortId.generate();
     yield delay(1000);
     yield put({
       type: SIGN_UP_SUCCESS,
+     //  data: action.data
+      data: {...action.data, id}
     });
   } catch (err) {
     console.error(err);

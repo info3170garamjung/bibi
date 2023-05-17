@@ -15,7 +15,7 @@ const PostButton = ({ onClick }) => {
     <>
         <div style={buttonStyle}>
           <Space direction="vertical">
-          <Button  icon={<FormOutlined style={{fontSize: '0.8rem'}}/> } onClick={onClick} >New</Button>
+          <Button   icon={<FormOutlined style={{fontSize: '0.8rem'}}/> } onClick={onClick} ></Button>
           </Space>
         </div>
 

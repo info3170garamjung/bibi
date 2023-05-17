@@ -20,5 +20,4 @@ BiBi.propTypes = {
   Component: PropTypes.elementType.isRequired,
 }
 
-// high order 컴포넌트로 감싸줌
 export default wrapper.withRedux(BiBi);
