@@ -1,5 +1,9 @@
 export const categories = [
   {
+    key: '0',
+    title: 'All'
+  },
+  {
     key: '1',
     title: 'JavaScript',
     //href: '/postAll'
@@ -28,5 +32,5 @@ export const categories = [
   {
     key: '7',
     title: 'Database'
-  }
+  },
 ];

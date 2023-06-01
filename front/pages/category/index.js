@@ -1,9 +1,12 @@
 import AppLayout from "../../components/AppLayout";
 const CategoryPage = () => {
   return (
-    <AppLayout>
+    <>
+        <AppLayout>
       <h1>Category Page</h1>
     </AppLayout>
+    </>
+
   );
 };
 

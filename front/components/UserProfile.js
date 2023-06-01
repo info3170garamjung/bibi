@@ -3,11 +3,13 @@ import React, { useCallback, useState } from 'react';
 import { Button, Avatar, Card } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { logoutRequestAction } from '../reducers/user';
+import { useRouter } from 'next/router';
 
 const UserProfile = () => {
   const dispatch = useDispatch();
   const { me, logOutLoading } = useSelector((state) => state.user); 
   const [ isMenuOpen, setIsMenuOpen ] = useState(false);
+  const router = useRouter();
 
   const onLogOut = useCallback(() => {
     dispatch(logoutRequestAction());
@@ -17,11 +19,15 @@ const UserProfile = () => {
     setIsMenuOpen((prev) => !prev);
   }
 
+  const handleProfile = useCallback(() => {
+    router.push(`/profile/${me.id}`);
+  }, []);
+
 
   return (
     <div style={{ display: 'flex', justifyContent: 'flex-end'}}>
       <div onClick={toggleMenu} >
-            <Avatar shape="square" style={{ backgroundColor: '#000', color: '#fff'}}>{me.email[0].toUpperCase()}</Avatar>
+            <Avatar shape="square" style={{ backgroundColor: '#000', color: '#fff'}}>{me.nickname[0].toUpperCase()}</Avatar>
       </div>
 
       {isMenuOpen && (
@@ -32,7 +38,7 @@ const UserProfile = () => {
        </div>
        <hr style={{ borderTop: '1px solid #f0eded' }} />
 
-       <Button type="text">Profile</Button> 
+       <Button type="text" onClick={handleProfile}>Profile</Button> 
        
         <hr style={{ borderTop: '1px solid #f0eded' }} />
       <Button type="text" onClick={onLogOut} loading={logOutLoading}>Logout from bibi blog</Button>

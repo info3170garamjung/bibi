@@ -9,11 +9,19 @@ export const initialState = {
   signUpLoading: false, // 회원가입 시도중
   signUpDone: false,
   signUpError: null,
-  me: null,
+ // me: null,
   //me: {},
+  me: {nickname: 'red', email: 'bibi@gmail.com'},
  signUpData: [],
   loginData: {},
+  changeNicknameLoading: false,
+  changeNicknameDone: false,
+  changeNicknameError: null,
 }
+
+export const CHANGE_NICKNAME_REQUEST = 'CHANGE_NICKNAME_REQUEST';
+export const CHANGE_NICKNAME_SUCCESS = 'CHANGE_NICKNAME_SUCCESS';
+export const CHANGE_NICKNAME_FAILURE = 'CHANGE_NICKNAME_FAILURE';
 
 export const SIGN_UP_REQUEST = 'SIGN_UP_REQUEST';
 export const SIGN_UP_SUCCESS = 'SIGN_UP_SUCCESS';
@@ -39,7 +47,12 @@ const dummyUser = (data) => ({
 });
 */
 
-
+export const changeNicknameRequestAction = (nickname) => {
+  return {
+    type: CHANGE_NICKNAME_REQUEST,
+    data: nickname,
+  }
+};
 
 
 export const loginRequestAction = (data) => {
@@ -58,6 +71,30 @@ export const logoutRequestAction = () => {
 
 export default (state = initialState, action) => {
   switch (action.type) {
+    case CHANGE_NICKNAME_REQUEST:
+      return {
+        ...state,
+        changeNicknameLoading : true,
+        changeNicknameDone: false,
+        changeNicknameError: null,
+      }
+        case CHANGE_NICKNAME_SUCCESS:
+          return {
+            ...state,
+            me: {
+              ...state.me,
+              nickname: action.data,
+            },
+            changeNicknameLoading: false,
+            changeNicknameDone: true,
+          }
+  
+      case CHANGE_NICKNAME_FAILURE:
+        return {
+          ...state,
+          changeNicknameLoading: false,
+          changeNicknameError: action.error,
+        }
     case LOG_IN_REQUEST: 
       return {
         ...state,

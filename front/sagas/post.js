@@ -9,11 +9,45 @@ import {
   REMOVE_POST_FAILURE,
   REMOVE_POST_SUCCESS,
   REMOVE_POST_REQUEST,
+  EDIT_POST_REQUEST,
+  EDIT_POST_SUCCESS,
+  EDIT_POST_FAILURE,
+  setEditingStatus,
 } from '../reducers/post';
-
 import { select } from 'redux-saga/effects';
 
 import { ADD_POST_TO_ME, REMOVE_POST_OF_ME } from '../reducers/user';
+
+function editPostAPI(data) {
+  return axios.put('/api/post', data)
+}
+
+function* editPost(action) {
+  try {
+    yield delay(1000);
+    const me = yield select((state) => state.user.me);
+    yield put({
+      type: EDIT_POST_SUCCESS,
+      data: {
+        id: action.data.id,
+        ...action.data,
+        User: {
+          ...action.data.User,
+         id: me.id,
+        },
+      },
+    });
+    // add
+    yield put(setEditingStatus(false));
+
+  }
+  catch(err) {
+    yield put({
+      type: EDIT_POST_FAILURE,
+      data: err.respose.data,
+    })
+  }
+}
 
 function addPostAPI(data) {
   return axios.post('/api/post', data) // 서버의 요청 보내기
@@ -101,9 +135,14 @@ function* watchRemovePost() {
   yield takeLatest(REMOVE_POST_REQUEST, removePost);
 }
 
+function* watchEditPost() {
+  yield takeLatest(EDIT_POST_REQUEST, editPost);
+}
+
 export default function* postSaga() {
   yield all([
     fork(watchAddPost),
     fork(watchRemovePost),
+    fork(watchEditPost),
   ]);
 }

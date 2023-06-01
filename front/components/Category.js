@@ -1,24 +1,61 @@
 
-
 import React, {useState} from "react";
 import { 
-  ReadOutlined,
-  WalletOutlined
+  RightOutlined,
 } from '@ant-design/icons';
 import { useRouter } from 'next/router';
-
+import styled from 'styled-components';
 import { Menu } from 'antd';
 const { SubMenu } = Menu;
+import { useDispatch, useSelector } from "react-redux";
+import { showPostFormAction } from "../reducers/post";
 import Link from 'next/link';
 import { categories } from './categories';
-const Category = ({ onClick }) => {
-  
+ import GlobalStyles from "./GlobalStyles";
+const StyledMenu = styled(Menu)`
+  .ant-menu-item-selected {
+    font-weight: 500;
+    color: #4d4f4e;
+    background-color: #f5f5f5;
+  }
+
+  .ant-menu-item {
+    color: #b7b9bd;
+  }
+`;
+
+const StyledSubMenu = styled(SubMenu)`
+&&& {
+  color: #4d4f4e;
+}
+
+&&&.ant-menu-submenu-selected > .ant-menu-submenu-title {
+  color: #4d4f4e;
+  background-color: #f5f5f5;
+}
+
+
+`;
+
+
+const Category = () => {
+  const { showPostForm} = useSelector(state => state.post);
   const router = useRouter();
+  const dispatch = useDispatch();
 
-  const handleCategoryClick = (category) => {
 
+
+const handleCategoryClick = (category) => {
+  if (category.title === 'All') {
+    router.push('/category/all_posts'); // replace with actual path
+  } else {
     router.push(`/category/${category.title}`);
-  };
+  }
+  if (showPostForm) {
+    dispatch(showPostFormAction(false));
+  }
+  //dispatch(showPostFormAction(false));
+};
 
   const [openKeys, setOpenKeys] = useState(['sub2']); // 기본적으로 sub2가 열려있게 설정
 
@@ -26,20 +63,26 @@ const Category = ({ onClick }) => {
     setOpenKeys(keys);
   };
 
+  const handlePortfolioClick = () => {
+    router.push('/category/portfolio');
+    dispatch(showPostFormAction(false));
+  };
+
   return (
     <>
+    <GlobalStyles />
     <div className="menu-container">
-      <Menu
-        onClick={onClick}
+    <StyledMenu
+       // onClick={onClick}
         openKeys={openKeys} // openKeys prop 추가
         onOpenChange={handleMenuOpenChange} // onOpenChange prop 추가
-        defaultSelectedKeys={['1']}
+       // defaultSelectedKeys={['1']}
         defaultOpenKeys={['sub1']}
         mode="inline"
       >
-        <Menu.Item key="portfolio" icon={<WalletOutlined />}>Portfolio</Menu.Item>
+        <Menu.Item key="portfolio" onClick={handlePortfolioClick}  icon={<RightOutlined />}>Portfolio</Menu.Item>
         <Menu.Divider />
-        <SubMenu key="sub2" icon={<ReadOutlined />} title="My Study">
+        <StyledSubMenu key="sub2" icon={<RightOutlined />} title="My Study"  >
           {categories.map(category => (
             <Menu.Item key={category.key} onClick={() => handleCategoryClick(category)}>
               {category.href ? (
@@ -47,9 +90,9 @@ const Category = ({ onClick }) => {
               ) : category.title.toLowerCase()}
             </Menu.Item>
           ))}
-        </SubMenu>
+        </StyledSubMenu>
         <Menu.Divider />
-      </Menu>
+      </StyledMenu>
       </div>
     </>
   );
