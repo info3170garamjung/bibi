@@ -1,7 +1,7 @@
 
 
-import React, { useState, useEffect } from 'react';
-import { Col, Row, Space } from 'antd';
+import React, { useEffect } from 'react';
+import { Col, Row } from 'antd';
 import Category from './Category';
 import Header from './Header';
 import Footer from "./Footer";
@@ -43,7 +43,7 @@ const AppLayout = ({ children, excludeCategory = false, excludePostButton = fals
     <>
     <GlobalStyles />
     <Header />
-    <Row gutter={10}>
+    <Row gutter={10} style={{paddingTop: '4rem'}}>
       <Col xs={24} md={4}> 
       <div style={{ display: 'flex', justifyContent: 'space-around' }}>
       {!excludePostButton && !isEditingPage  && me && !showPostForm && (<PostButton />)}
@@ -57,6 +57,7 @@ const AppLayout = ({ children, excludeCategory = false, excludePostButton = fals
         {isMainPage && !showPostForm && <MainPage />}
       </Col>
     </Row>
+    <Footer />
     </>
   );
 }

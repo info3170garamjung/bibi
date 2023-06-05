@@ -9,15 +9,22 @@ export const initialState = {
   signUpLoading: false, // 회원가입 시도중
   signUpDone: false,
   signUpError: null,
- // me: null,
-  //me: {},
-  me: {nickname: 'red', email: 'bibi@gmail.com'},
+  me: null,
+  //me: {nickname: 'red', email: 'bibi@gmail.com'},
  signUpData: [],
   loginData: {},
   changeNicknameLoading: false,
   changeNicknameDone: false,
   changeNicknameError: null,
+  verifyEmailLoading: false,
+  verifyEmailDone: false,
+  verifyEmailError: null,
 }
+
+
+export const VERIFY_EMAIL_REQUEST = 'VERIFY_EMAIL_REQUEST';
+export const VERIFY_EMAIL_SUCCESS = 'VERIFY_EMAIL_SUCCESS';
+export const VERIFY_EMAIL_FAILURE = 'VERIFY_EMAIL_FAILURE';
 
 export const CHANGE_NICKNAME_REQUEST = 'CHANGE_NICKNAME_REQUEST';
 export const CHANGE_NICKNAME_SUCCESS = 'CHANGE_NICKNAME_SUCCESS';
@@ -26,6 +33,8 @@ export const CHANGE_NICKNAME_FAILURE = 'CHANGE_NICKNAME_FAILURE';
 export const SIGN_UP_REQUEST = 'SIGN_UP_REQUEST';
 export const SIGN_UP_SUCCESS = 'SIGN_UP_SUCCESS';
 export const SIGN_UP_FAILURE = 'SIGN_UP_FAILURE';
+
+export const SIGN_UP_RESET = 'SIGN_UP_RESET';
 
 export const LOG_IN_REQUEST = 'LOG_IN_REQUEST'; 
 export const LOG_IN_SUCCESS = 'LOG_IN_SUCCESS'; 
@@ -46,6 +55,14 @@ const dummyUser = (data) => ({
   Posts: [],
 });
 */
+
+
+export const verifyEmailRequestAction = (email) => {
+  return {
+    type: VERIFY_EMAIL_REQUEST,
+    data: { email },
+  }
+};
 
 export const changeNicknameRequestAction = (nickname) => {
   return {
@@ -71,6 +88,47 @@ export const logoutRequestAction = () => {
 
 export default (state = initialState, action) => {
   switch (action.type) {
+    case SIGN_UP_RESET:
+      return {
+        ...state,
+        signUpLoading: false,
+        signUpDone: false,
+        signUpError: null,
+        verifyEmailDone: false,
+      }
+    case VERIFY_EMAIL_REQUEST:
+      return {
+        ...state,
+        verifyEmailLoading: true,
+        verifyEmailDone: false,
+        verifyEmailError: null,
+      };
+    case VERIFY_EMAIL_SUCCESS:
+      const emailExists = state.signUpData.find(user => user.email === action.data.email);
+      console.log('action.data', action.data); // 이메일이 정확히 전달되었는지 확인
+      console.log('emailExists', emailExists); // 이메일이 중복되는 경우 emailExists 값 확인
+      console.log('action.data.email', action.data.email);
+      if (emailExists) {
+        return {
+          ...state,
+          verifyEmailLoading: false,
+          verifyEmailDone: true,
+          verifyEmailError: "The email already exists."
+        };
+      } else {
+        return {
+          ...state,
+          verifyEmailLoading: false,
+          verifyEmailDone: true,
+          //verifyEmailError: null,
+        };
+      }
+    case VERIFY_EMAIL_FAILURE:
+      return {
+        ...state,
+        verifyEmailLoading: false,
+        verifyEmailError: action.error,
+      }
     case CHANGE_NICKNAME_REQUEST:
       return {
         ...state,
@@ -102,6 +160,7 @@ export default (state = initialState, action) => {
         logInError: null,
         logInDone: false
       }; 
+      /*
 case LOG_IN_SUCCESS: 
   const loggedInUser = state.signUpData.find(user => user.email === action.data.email && user.password === action.data.password); 
   if (loggedInUser) {
@@ -133,14 +192,45 @@ case LOG_IN_SUCCESS:
       logInError: '로그인에 실패하였습니다',
       };
     }
-    
+    */
+   case LOG_IN_SUCCESS:
+      const loggedInUser = state.signUpData.find(user => user.email === action.data.email && user.password === action.data.password);
+      if (loggedInUser) {
+        const user = {
+          email: loggedInUser.email,
+          password: loggedInUser.password,
+          nickname: loggedInUser.nickname,
+          id: loggedInUser.id,
+        };
+        return {
+          ...state, 
+          logInLoading: false,
+          logInDone: true,
+          me: user,
+          logInError: null, // 로그인 성공 시 에러 메세지 초기화
+        };
+      } else {
+        return {
+          ...state,
+          logInLoading: false,
+          logInDone: false,
+          logInError: 'Email or password does not match',
+        };
+      }
+    /*
     case LOG_IN_FAILURE: 
       return {
         ...state,
         logInLoading: false,
         logInError: action.error,
       }; 
-    
+    */
+   case LOG_IN_FAILURE:
+    return {
+      ...state,
+      logInLoading: false,
+      logInError: action.error || 'Unexpected error occurred', // 에러 메세지 추가
+    }
 
 
     case LOG_OUT_REQUEST: 
@@ -157,6 +247,7 @@ case LOG_IN_SUCCESS:
         ...state,
         logOutLoading: false,
         logOutDone: true,
+        logInDone: false, // 추가된 부분
         me: null,
       };
     
@@ -167,9 +258,12 @@ case LOG_IN_SUCCESS:
         logOutLoading: false,
         logOutError: action.error,
       };
-    
-
-
+    case SIGN_UP_RESET:
+      return {
+        ...state,
+        signUpDone: false,
+        signUpError: null,
+      }
       case SIGN_UP_REQUEST: 
       return {
         ...state,
@@ -183,8 +277,8 @@ case LOG_IN_SUCCESS:
         ...state,
         signUpLoading: false,
         signUpDone: true,
-       signUpData: [{ ...action.data }]
-  
+      // signUpData: [{ ...action.data }]
+        signUpData: state.signUpData.concat(action.data)
     };
 
       case SIGN_UP_FAILURE: 

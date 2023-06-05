@@ -17,7 +17,8 @@ const AllPosts = () => {
 
 
   const pagination = {
-    size: 'small'
+    size: 'small',
+    pageSize: 5,
   }
 
   const columns = [

@@ -25,8 +25,8 @@ const PostButton = () => {
   return (
     <>
         <div style={buttonStyle}>
-          <Space direction="vertical">
-          <Button style={{fontWeight: 500, backgroundColor: '#d5d8f6', border:'none', fontSize: '0.8rem', color:'#7d88fa', marginBottom: '1.2rem'}} onClick={handleClick}>New Post</Button>
+          <Space direction="vertical" style={{marginTop: '1rem'}}>
+          <Button style={{fontWeight: 500, backgroundColor: '#5d708e', border:'none', fontSize: '0.8rem', fontFamily: 'Bitter', color:'#d5d8f6', marginBottom: '1.2rem'}} onClick={handleClick}>New Post</Button>
           </Space>
         </div>
 

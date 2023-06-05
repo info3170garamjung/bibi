@@ -2,13 +2,16 @@ import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
 import AppLayout from '../../components/AppLayout';
 import { Typography, Button, Divider, Card, Avatar } from 'antd';
+import React, { useCallback, useState, useEffect } from 'react';
 
 const EditProfile = () => {
   const router = useRouter();
-  const { userid } = router.query;
   const { me } = useSelector((state) => state.user);
   const { mainPosts } = useSelector((state) => state.post);
 
+
+
+  
   const userPosts = mainPosts.filter((post) => post.User.id === me.id);
   const userPostsCount = userPosts.length;
   return (
@@ -19,7 +22,7 @@ const EditProfile = () => {
         marginBottom: '5rem',
       }}
       type="inner"
-      title={me.nickname}
+      title={`${me.nickname}'s Profile`}
     >
       <div style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center'}}>
        <Avatar shape="square" 
@@ -37,7 +40,13 @@ const EditProfile = () => {
       <Divider />
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
   <Typography style={{fontSize: '1.1rem', fontWeight: 'bold', color: '#606061'}}>My Posts</Typography>
-  <Typography style={{fontSize: '0.9rem', color: '#606061'}}><Button type="link"  onClick={() => router.push('/profile/myposts')}>+ See All</Button></Typography>
+  <Typography style={{fontSize: '0.9rem', color: '#606061'}}>
+    <Button type="link"  
+    onClick={() => router.push('/profile/myposts')}
+    disabled={userPostsCount === 0}
+    >See All
+    </Button>
+    </Typography>
 </div>
       <div style={{ display: 'flex', justifyContent: 'center'}}>
         <Typography style={{ textAlign: 'center', margin: '2rem', color: '#7c7c7d'}}>
@@ -45,14 +54,6 @@ const EditProfile = () => {
         
       </div>
       <Divider />
-
-      <div>
-        {me?.id ? (
-         <> {me.id} </>
-        ): (
-        <>User Id is not found! </>
-        )}
-      </div>
       </div>
     </AppLayout>
   )

@@ -10,6 +10,8 @@ import FormCategory from './FormCategory';
 import PostFormLayout from './PostFormLayout';
 import QuillEditor from './QuillEditor';
 import { useRouter } from 'next/router';
+import GlobalStyles from './GlobalStyles';
+
 const PostForm = ({ post }) => {
   const isEditing = useSelector((state) => state.post.isEditing)
   const [content, setContent] = useState('');
@@ -98,6 +100,7 @@ console.log(text, category, content);
 
   return (
     <>
+    <GlobalStyles />
           <div>
           <PostFormLayout onSubmit={onSubmit}>
             <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '1rem', marginBottom: '1rem' }}>

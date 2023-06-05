@@ -1,27 +1,84 @@
-import React, {useState, useCallback} from "react";
-import { Form, Modal, Input, Card, Image, Checkbox, Divider, Button, Typography } from 'antd';
+
+
+import React, {useState, useCallback, useEffect} from "react";
+import { Form, Modal, Input, Card, Checkbox, Divider, Button, Typography, Alert } from 'antd';
 import useInput from './hooks/useInput';
 import Footer from '../components/Footer';
 import Link from "next/link";
 import { 
   KeyOutlined,
   ExclamationCircleOutlined,
-  GoogleSquareFilled
 } from '@ant-design/icons';
-import { SIGN_UP_REQUEST } from '../reducers/user';
+import { SIGN_UP_REQUEST, SIGN_UP_RESET } from '../reducers/user';
 import { useDispatch, useSelector } from 'react-redux';
+import { useRouter } from 'next/router';
+import EmailVerification from '../components/EmailVerification';
+import { notification } from 'antd';
+
+const checkPassword = (password) => {
+  const hasUpperCase = /[A-Z]/.test(password);
+  const hasNumber = /\d/.test(password);
+  const isLongEnough = password.length >= 8;
+  return hasUpperCase && hasNumber && isLongEnough;
+};
+
 
 
 const Signup = () => {
   const dispatch = useDispatch();
+  const router = useRouter();
   const [email, onChangeEmail ] = useInput('');
   const [ nickname, onChangeNickname ] = useInput('');
+
   const [ password, onChangePassword ] = useInput('');
+  const [ passwordWarning, setPasswordWarning ] = useState('');
   const [ passwordError, setPasswordError ] = useState(false);
   const [ passwordCheck, setPasswordCheck ] = useState('');
+  
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { signUpLoading } = useSelector((state) => state.user);
+  const { signUpLoading, signUpData, signUpDone } = useSelector((state) => state.user);
 
+  const {  verifyEmailDone, verifyEmailError } = useSelector((state) => state.user);
+
+  /*
+  useEffect(() => {
+    if (signUpDone) {
+      router.push('/');
+      dispatch({ type: SIGN_UP_RESET })
+    }
+  }, [signUpDone, dispatch, router]);
+*/
+
+useEffect(() => {
+  if (signUpDone) {
+    notification.success({
+      message: 'Registration Completed',
+      description: 'You have successfully registered',
+    });
+    dispatch({ type: SIGN_UP_RESET });
+    router.push('/');
+  }
+}, [signUpDone, dispatch, router]);
+
+  useEffect(() => {
+    if (password) {
+    if(!checkPassword(password)) {
+      setPasswordWarning("Password must contain at least one uppercase letter, number and at least 8 characters long.");
+    } else {
+      setPasswordWarning(''); // 요구사항을 충족하면 경고 메세지를 삭제
+    }
+  } else {
+    setPasswordWarning(''); // 비밀번호가 공백이라면 경고 메세지를 삭제
+  }
+  }, [password]);
+
+  useEffect(() => {
+    console.log('signUpData', signUpData);
+  }, [signUpData]);
+
+
+
+  
   const showModal = () => {
     setIsModalOpen(true);
   };
@@ -47,6 +104,17 @@ const Signup = () => {
   
 
   const onSubmit = useCallback(() => {
+    if (verifyEmailError) {
+      console.log('현재 이것이 작동');
+      alert(verifyEmailError);
+      return;
+    }
+
+    if (!verifyEmailDone && !verifyEmailError) {
+      alert("Please confirm your email address");
+      return;
+    }
+
     if (password !== passwordCheck) {
       return setPasswordError(true);
     }
@@ -64,28 +132,37 @@ const Signup = () => {
       },
     });
     
-  }, [email, password, passwordCheck, term]);
+  }, [email, password, passwordCheck, term, verifyEmailError]);
+
+
+
+  const handleSignInClick = () => {
+    router.push('/signin');
+  }
 
   return (
     <>
-    <div style={{textAlign: 'center'}}><Image src="/bibi_logo.png" width='50px' alt="logo" /></div>
-    <div style={{ display: 'flex', justifyContent: 'center', marginTop: '1.2rem' }}>
+    <div style={{textAlign: 'center'}}>
+    <Link href='/'><Button  type="link" style={{ color: '#526687', padding: 0, fontFamily: 'Candal', fontSize: '1.5rem'}}> 
+        DevDiary
+        </Button></Link>
+      </div>
+    <div style={{ display: 'flex', justifyContent: 'center', marginTop: '3rem' }}>
     <Card title="Create account" style={{width: 450}}>
     <Form onFinish={onSubmit} style={{maxWidth: 400}}>
-      <div style={{marginBottom: '0.8rem'}}>
-        <label htmlFor="user-email"><Typography style={{ fontSize: '0.8rem', marginBottom: '0.3rem', fontWeight: 500}}>Email</Typography></label>
-        <Input style={{borderWidth: '2px' }} name="user-email" type="email" value={email} required onChange={onChangeEmail} />
-      </div>
+    <EmailVerification email={email} onChangeEmail={onChangeEmail} />
       <div style={{marginBottom: '0.8rem'}}>
         <label htmlFor="user-nick" ><Typography style={{ fontSize: '0.8rem', marginBottom: '0.3rem', fontWeight: 500}}>Nickname</Typography></label>
         <Input style={{borderWidth: '2px' }} name="user-nick" value={nickname} required onChange={onChangeNickname} />
-      </div>
+        </div>
       <div style={{marginBottom: '0.8rem'}}>
         <label htmlFor="user-password"><Typography style={{ fontSize: '0.8rem', marginBottom: '0.3rem', fontWeight: 500}}>Password</Typography></label>
         <Input style={{borderWidth: '2px' }} name="user-password" type="password" value={password} required onChange={onChangePassword} />
       </div>
+      {passwordWarning && <Alert message={passwordWarning} type="error"></Alert>}
+
       <div style={{marginBottom: '0.9rem'}}>
-        <label htmlFor="user-password-check"><Typography style={{ fontSize: '0.8rem', marginBottom: '0.3rem', fontWeight: 500}}>Password again</Typography></label>
+        <label htmlFor="user-password-check"><Typography style={{ fontSize: '0.8rem', marginBottom: '0.3rem', fontWeight: 500}}>Confirm Password</Typography></label>
         <Input 
         name="user-password-check" 
         type="password" 
@@ -105,20 +182,16 @@ const Signup = () => {
           {termError && <Typography style={{ color: '#d9686e', fontSize: '0.8rem', marginTop: '0.2rem', fontWeight: 500 }}><ExclamationCircleOutlined /> You must agree with BiBi's Conditions.</Typography>}
         </div>
         <div style={{ marginTop: 10 }}>
-          <Button type="primary" htmlType="submit"  loading={signUpLoading} style={{ width: '100%', backgroundColor: '#f5e264', color: '#3348a3', boxShadow: 'none', letterSpacing: '0.05em'}} >Join In</Button>
+          <Button type="primary" htmlType="submit"  loading={signUpLoading} style={{ width: '100%', backgroundColor: '#343e4f', color: '#e4e6eb', boxShadow: 'none', letterSpacing: '0.05em'}} >Join In</Button>
         </div>
         <div style={{ marginTop: 10 }}>
         <Link href='/'><Button type="primary" style={{width: '100%', backgroundColor: '#e6e6e6', color: '#616263', boxShadow: 'none', letterSpacing: '0.05em'}} >Cancel</Button></Link>
         </div>
 
         <Divider />
-        <Typography style={{fontWeight: 500, fontSize: '0.9rem'}}>Already have an account? <Link href='/signIn'>Sign in</Link></Typography>
-        <Divider />
-        <div style={{textAlign: 'center'}}>
-          <GoogleSquareFilled style={{fontSize: '2rem'}}/>
-        <Typography style={{ fontSize: '0.8rem', marginTop: '0.3rem', color: '#6d6d6e' }}>Sign Up with Google</Typography>
-        </div>
-
+        <Typography style={{fontWeight: 500, fontSize: '0.9rem'}}>Already have an account? 
+        <span onClick={handleSignInClick} style={{ cursor: 'pointer', color: '#5683ba', marginLeft: '0.5rem'}}>Sign in</span>
+        </Typography>
     </Form>
     </Card>
     </div>

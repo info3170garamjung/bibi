@@ -15,7 +15,29 @@ import {
   CHANGE_NICKNAME_REQUEST,
   CHANGE_NICKNAME_SUCCESS,
   CHANGE_NICKNAME_FAILURE,
+  VERIFY_EMAIL_REQUEST,
+  VERIFY_EMAIL_SUCCESS,
+  VERIFY_EMAIL_FAILURE
 } from '../reducers/user';
+
+function verifyEmailAPI(data) {
+  return axios.get('/api/verifyEmail', data)
+}
+function* verifyEmail(action) {
+  try {
+    yield delay(1000);
+    yield put({
+      type: VERIFY_EMAIL_SUCCESS,
+      data: action.data
+    });
+  } catch(err) {
+    yield put({
+      type: VERIFY_EMAIL_FAILURE,
+      error: err.response.data,
+    })
+  }
+}
+
 
 function changeNicknameAPI(data) {
   return axios.patch('/api/user/nickname', data)
@@ -116,11 +138,16 @@ function* watchChangeNickname() {
   yield takeLatest(CHANGE_NICKNAME_REQUEST, changeNickname);
 }
 
+function* watchVerifyEmail() {
+  yield takeLatest(VERIFY_EMAIL_REQUEST, verifyEmail);
+}
+
 export default function* userSaga() {
   yield all([
     fork(watchLogIn),
     fork(watchLogOut),
     fork(watchSignUp),
     fork(watchChangeNickname),
+    fork(watchVerifyEmail),
   ]);
 }

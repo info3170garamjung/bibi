@@ -46,22 +46,18 @@ const handleMenuClick = ({ key }) => {
     <>
     <GlobalStyles />
       <div>
-      <Typography style={{ color: '#000', fontSize: '1.1rem', fontWeight: 'bold', margin: '1.2rem' }}>
-        {me.nickname}
-      </Typography>
       <Divider />
       <Menu 
       onClick={handleMenuClick} 
-     // defaultSelectedKeys={['home']}
      selectedKeys={[isSelectedMenu]}
       mode="vertical">
-        <Menu.Item key="home" icon={<RightOutlined />} >
+        <Menu.Item key="home" style={{fontFamily: 'Bitter'}} icon={<RightOutlined />} >
         Home
         </Menu.Item>
-        <Menu.Item key="myPost" icon={<RightOutlined />} >
+        <Menu.Item key="myPost" style={{fontFamily: 'Bitter'}} icon={<RightOutlined />} >
           My Post
         </Menu.Item>
-        <Menu.Item key="editProfile" icon={<RightOutlined />} >
+        <Menu.Item key="editProfile" style={{fontFamily: 'Bitter'}} icon={<RightOutlined />} >
         Edit Profile
         </Menu.Item>
 

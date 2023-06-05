@@ -14,7 +14,8 @@ const CategoryTitle = () => {
    const filteredPosts = mainPosts.filter((post) => post.category === title);
 
   const pagination = {
-    size: 'small'
+    size: 'small', 
+    pageSize: 5,
   }
 
   const columns = [
@@ -69,7 +70,10 @@ const CategoryTitle = () => {
       </Space>
       <div style={{ marginTop: '2rem' }}>
       {filteredPosts.length > 0 ? 
-      <Table dataSource={filteredPosts} pagination={pagination} columns={columns}  /> 
+      <Table 
+      dataSource={filteredPosts} 
+      pagination={filteredPosts.length > 5 ? pagination : false} 
+      columns={columns}  /> 
       : <div>No Posts found.</div>}
     </div>
     </div>
