@@ -15,7 +15,7 @@ import GlobalStyles from './GlobalStyles';
 const PostForm = ({ post }) => {
   const isEditing = useSelector((state) => state.post.isEditing)
   const [content, setContent] = useState('');
-  const { addPostDone, editPostDone } = useSelector(state => state.post);
+  const { addPostDone } = useSelector(state => state.post);
   const dispatch = useDispatch();
   const [ text, setText ] = useState('');
   const [category, selectedCategory] = useState(null);
@@ -26,8 +26,8 @@ const PostForm = ({ post }) => {
   const id = useSelector((state) => state.user.me?.id);
   const nickname = useSelector((state) => state.user.me?.nickname);
 
-  console.log('post가 잘전달되는지확인', post);
-  console.log('isEditing이 잘 전달되는지 확인',isEditing);
+  console.log('post', post);
+  console.log('isEditing',isEditing);
 
   const handleContentChange = useCallback((value) => {
     setContent(value);
@@ -87,7 +87,6 @@ const PostForm = ({ post }) => {
       category,
       content,
       User: {
-       // id,
         nickname,
       },
     };
@@ -100,39 +99,35 @@ console.log(text, category, content);
 
   return (
     <>
-    <GlobalStyles />
-          <div>
+      <GlobalStyles />
+        <div>
           <PostFormLayout onSubmit={onSubmit}>
             <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '1rem', marginBottom: '1rem' }}>
-            <div>
-                <Button type="text" icon={<HeartOutlined />} style={{color: '#84a6f5', fontWeight: 500}} htmlType="submit">Share</Button>
+              <div>
+             <Button type="text" icon={<HeartOutlined />} style={{color: '#84a6f5', fontWeight: 500}} htmlType="submit">Share</Button>
+              </div>
             </div>
-          </div>
 
-          <Form.Item label="Catalogy">
-          <FormCategory handleChangeCategory={handleChangeCategory} selectedCategory={category} />
-         </Form.Item>
+            <Form.Item label="Catalogy">
+              <FormCategory handleChangeCategory={handleChangeCategory} selectedCategory={category} />
+            </Form.Item>
 
-
-          <Form.Item label="Title">
-          <Input 
-          value={text} 
-          onChange={onChangeText} 
-          placeholder='Enter the header' 
-          />
-        </Form.Item>
+            <Form.Item label="Title">
+              <Input 
+              value={text} 
+              onChange={onChangeText} 
+              placeholder='Enter the header' 
+              />
+            </Form.Item>
         
-        <Form.Item label="Content">
-          <QuillEditor 
-          value={content} 
-          onChange={handleContentChange} 
-          /> 
-        </Form.Item>
-    
-
-        </PostFormLayout>
+            <Form.Item label="Content">
+              <QuillEditor 
+              value={content} 
+              onChange={handleContentChange} 
+              /> 
+            </Form.Item>
+          </PostFormLayout>
         </div>
-
     </>
   );
 };

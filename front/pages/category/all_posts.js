@@ -8,13 +8,10 @@ import { useSelector } from 'react-redux';
 const { Text } = Typography;
 import Link from 'next/link';
 
-
-
 const AllPosts = () => {
   const router = useRouter();
   const { title } = router.query;
   const { mainPosts } = useSelector((state) => state.post);
-
 
   const pagination = {
     size: 'small',
@@ -34,7 +31,6 @@ const AllPosts = () => {
       render: (text, record) => {
         console.log('title', text);
         return <Link href={`/category/${record.category}/${record.id}`}>{text}</Link>;
-
       },
     },
     
@@ -43,22 +39,20 @@ const AllPosts = () => {
       dataIndex: ['User', 'nickname'],
       key: 'nickname',
     },
-  
-    
   ];
 
   return (
     <AppLayout>
-            <div style={{margin: '1.5rem'}}>
-      <Space direction="vertical">
-      <Text type="secondary" style={{fontSize: '1rem'}}>All Posts</Text>
-      </Space>
-      <div style={{ marginTop: '2rem' }}>
-      {mainPosts.length > 0 ? 
-      <Table dataSource={mainPosts} pagination={pagination} columns={columns}  /> 
-      : <div>No Posts found.</div>}
-    </div>
-    </div>
+      <div style={{margin: '1.5rem'}}>
+        <Space direction="vertical">
+        <Text type="secondary" style={{fontSize: '1rem'}}>All Posts</Text>
+        </Space>
+        <div style={{ marginTop: '2rem' }}>
+        {mainPosts.length > 0 ? 
+        <Table dataSource={mainPosts} pagination={pagination} columns={columns}  /> 
+        : <div>No Posts found.</div>}
+        </div>
+      </div>
     </AppLayout>
   );
 };

@@ -1,5 +1,3 @@
-
-
 import React from "react";
 import { Button, Space } from 'antd';
 import { useRouter } from 'next/router';
@@ -15,8 +13,6 @@ const PostButton = () => {
     margin: '0.5rem 0'
   };
 
-
-
   const handleClick = () => {
     router.push('/')
     .then(() => dispatch(showPostFormAction(true)))
@@ -24,12 +20,11 @@ const PostButton = () => {
   }
   return (
     <>
-        <div style={buttonStyle}>
-          <Space direction="vertical" style={{marginTop: '1rem'}}>
-          <Button style={{fontWeight: 500, backgroundColor: '#5d708e', border:'none', fontSize: '0.8rem', fontFamily: 'Bitter', color:'#d5d8f6', marginBottom: '1.2rem'}} onClick={handleClick}>New Post</Button>
-          </Space>
-        </div>
-
+     <div style={buttonStyle}>
+        <Space direction="vertical" style={{marginTop: '1rem'}}>
+        <Button style={{fontWeight: 500, backgroundColor: '#5d708e', border:'none', fontSize: '0.8rem', fontFamily: 'Bitter', color:'#d5d8f6', marginBottom: '1.2rem'}} onClick={handleClick}>New Post</Button>
+        </Space>
+     </div>
     </>
   )
 }

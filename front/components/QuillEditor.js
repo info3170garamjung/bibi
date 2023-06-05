@@ -5,7 +5,7 @@ import dynamic from 'next/dynamic';
 import 'react-quill/dist/quill.snow.css';
 
 const ReactQuill = dynamic(() => import('react-quill'), {
-  ssr: false  // 서버사이드 렌더링에서는 불러오지 않음
+  ssr: false  
 });
 
 const QuillEditorWrapper = styled.div`
@@ -20,14 +20,11 @@ const QuillEditorWrapper = styled.div`
     white-space: pre-wrap;
   }
 
-
   .ql-snow .ql-editor code, .ql-snow .ql-editor pre {
     background-color: #f0f0f0;
     border-radius: 3px;
   }
-
 `;
-
 
 
 const QuillEditor = ({ value, onChange }) => {
@@ -64,14 +61,14 @@ const QuillEditor = ({ value, onChange }) => {
 
   return (
     <QuillEditorWrapper>
-    <ReactQuill
-      value={value}
-      onChange={onChange}
-      modules={modules}
-      formats={formats}
-      placeholder="Compose an epic..."
-      sanitize={sanitizeOptions} // sanitize 옵션 추가
-    />
+      <ReactQuill
+        value={value}
+        onChange={onChange}
+        modules={modules}
+        formats={formats}
+        placeholder="Compose an epic..."
+        sanitize={sanitizeOptions} // sanitize 옵션 추가
+      />
     </QuillEditorWrapper>
   );
 };

@@ -1,5 +1,3 @@
-
-
 import React, { useEffect } from 'react';
 import { Col, Row } from 'antd';
 import Category from './Category';
@@ -14,9 +12,7 @@ import GlobalStyles from './GlobalStyles';
 import { showPostFormAction } from '../reducers/post';
 import { useDispatch, useSelector } from 'react-redux';
 
-
 const AppLayout = ({ children, excludeCategory = false, excludePostButton = false }) => {
-  
   const { me } = useSelector((state) => state.user);
   const { showPostForm, addPostDone, editPostDone } = useSelector(state => state.post);
   const router = useRouter();
@@ -32,11 +28,6 @@ const AppLayout = ({ children, excludeCategory = false, excludePostButton = fals
       console.log('addPostDone, setShowPostForm: ', false)
     }
   }, [addPostDone, editPostDone]);
-  
-
-
-
-
   
 
   return (

@@ -41,32 +41,27 @@ const Signin = () => {
     <Link href='/'><Button  type="link" style={{ color: '#526687', padding: 0, fontFamily: 'Candal', fontSize: '1.5rem'}}> 
         DevDiary
         </Button></Link>
-
     </div>
+
     <div style={{ display: 'flex', justifyContent: 'center', marginTop: '3rem' }}> 
-    <Card title="Sign in" style={{width: 450}}> 
-    <Form onFinish={onSubmitForm} style={{maxWidth: 400}}>
-      <div style={{marginBottom: '0.8rem'}}>
-        <label htmlFor="user-email"><Typography style={{ fontSize: '0.8rem', marginBottom: '0.3rem', fontWeight: 500}}>Email</Typography></label>
-        <Input style={{borderWidth: '2px' }} name="user-email" type="email" value={email} onChange={onChangeEmail}  required/>
-      </div>
-      <div style={{marginBottom: '0.8rem'}}>
-        <label htmlFor="user-password"><Typography style={{ fontSize: '0.8rem', marginBottom: '0.3rem', fontWeight: 500}}>Password</Typography></label>
-        <Input style={{borderWidth: '2px' }} name="user-password" type="password" value={password} onChange={onChangePassword} required />
-      </div>
-        <div style={{ marginTop: 30 }}>
-        <Button type="primary" htmlType="submit" loading={logInLoading} style={{ width: '100%', backgroundColor: '#343e4f', color: '#e4e6eb', boxShadow: 'none', letterSpacing: '0.05em'}} >Sign In</Button>
+      <Card title="Sign in" style={{width: 450}}> 
+        <Form onFinish={onSubmitForm} style={{maxWidth: 400}}>
+        <div style={{marginBottom: '0.8rem'}}>
+          <label htmlFor="user-email"><Typography style={{ fontSize: '0.8rem', marginBottom: '0.3rem', fontWeight: 500}}>Email</Typography></label>
+          <Input style={{borderWidth: '2px' }} name="user-email" type="email" value={email} onChange={onChangeEmail}  required/>
+        </div>
+        <div style={{marginBottom: '0.8rem'}}>
+          <label htmlFor="user-password"><Typography style={{ fontSize: '0.8rem', marginBottom: '0.3rem', fontWeight: 500}}>Password</Typography></label>
+          <Input style={{borderWidth: '2px' }} name="user-password" type="password" value={password} onChange={onChangePassword} required />
+        </div>
+          <div style={{ marginTop: 30 }}>
+          <Button type="primary" htmlType="submit" loading={logInLoading} style={{ width: '100%', backgroundColor: '#343e4f', color: '#e4e6eb', boxShadow: 'none', letterSpacing: '0.05em'}} >Sign In</Button>
         </div>
         <div style={{ marginTop: 10 }}>
-        <Link href='/'><Button type="primary" style={{width: '100%', backgroundColor: '#e6e6e6', color: '#616263', boxShadow: 'none', letterSpacing: '0.05em'}} >Cancel</Button></Link>
-        </div>
-{/*
-        <Divider />
-        <Typography style={{fontWeight: 500, fontSize: '0.9rem'}}> <Link href='/'>Forgot Password</Link></Typography>
-  */}
-   
+          <Link href='/'><Button type="primary" style={{width: '100%', backgroundColor: '#e6e6e6', color: '#616263', boxShadow: 'none', letterSpacing: '0.05em'}} >Cancel</Button></Link>
+        </div>   
         </Form>
-   </Card> 
+      </Card> 
     </div> 
     <Footer />
     </>

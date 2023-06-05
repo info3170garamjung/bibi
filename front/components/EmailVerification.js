@@ -22,16 +22,15 @@ const EmailVerification = ({ email, onChangeEmail }) => {
 
   return (
       <div style={{marginBottom: '0.8rem'}}>
-      {verifyEmailDone && !verifyEmailError && <Alert message="The email is available." type="success" />}
-      {verifyEmailDone && verifyEmailError && <Alert message={verifyEmailError} type="error" />}
-      <label htmlFor="user-email"><Typography style={{ fontSize: '0.8rem', marginBottom: '0.3rem', fontWeight: 500}}>Email</Typography></label>
-      <div style={{ display: 'flex', justifyContent: 'center'}}>    
+        {verifyEmailDone && !verifyEmailError && <Alert message="The email is available." type="success" />}
+        {verifyEmailDone && verifyEmailError && <Alert message={verifyEmailError} type="error" />}
+        <label htmlFor="user-email"><Typography style={{ fontSize: '0.8rem', marginBottom: '0.3rem', fontWeight: 500}}>Email</Typography></label>
+        <div style={{ display: 'flex', justifyContent: 'center'}}>    
 
-          <Input style={{borderWidth: '2px' }} name="user-email" type="email" value={email} required onChange={onChangeEmail} disabled={verifyEmailDone && !verifyEmailError} />
-      <Button onClick={onVerifyEmail} loading={verifyEmailLoading} 
-      style={{marginLeft: '0.3rem'}} disabled={verifyEmailDone && !verifyEmailError}>
-      Confirm</Button>
-      </div>
+        <Input style={{borderWidth: '2px' }} name="user-email" type="email" value={email} required onChange={onChangeEmail} disabled={verifyEmailDone && !verifyEmailError} />
+        <Button onClick={onVerifyEmail} loading={verifyEmailLoading} 
+        style={{marginLeft: '0.3rem'}} disabled={verifyEmailDone && !verifyEmailError}>Confirm</Button>
+        </div>
       </div>
   );
 };

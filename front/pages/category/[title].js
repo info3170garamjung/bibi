@@ -24,13 +24,6 @@ const CategoryTitle = () => {
       dataIndex: 'category',
       key: 'category',
     },
-    /*
-    {
-      title: 'ID',
-      dataIndex: 'id',
-      key: 'id',
-    },
-*/
     {
       title: 'Title',
       dataIndex: 'title',
@@ -38,7 +31,6 @@ const CategoryTitle = () => {
       render: (text, record) => {
         console.log('title', text);
         return <Link href={`/category/${record.category}/${record.id}`}>{text}</Link>;
-
       },
     },
     
@@ -47,18 +39,6 @@ const CategoryTitle = () => {
       dataIndex: ['User', 'nickname'],
       key: 'nickname',
     },
-  
-   /*
-    {
-      title: 'Content',
-      dataIndex: 'content',
-      key: 'content',
-      render: (content) => {
-        console.log('content', content); // 콘솔에 text 출력
-        return content ? <div dangerouslySetInnerHTML={{ __html: content }} /> : null;
-      },
-    },
-    */
     
   ];
 

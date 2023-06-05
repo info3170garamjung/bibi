@@ -28,7 +28,6 @@ const StyledSubMenu = styled(SubMenu)`
 &&& {
   color: #4d4f4e;
   font-family: 'Bitter';
-
 }
 
 &&&.ant-menu-submenu-selected > .ant-menu-submenu-title {
@@ -36,17 +35,12 @@ const StyledSubMenu = styled(SubMenu)`
   font-weight: bold;
   background-color: #f5f5f5;
 }
-
-
 `;
-
 
 const Category = () => {
   const { showPostForm } = useSelector(state => state.post);
   const router = useRouter();
   const dispatch = useDispatch();
-
-
 
 const handleCategoryClick = (category) => {
   if (category.title === 'All') {
@@ -60,27 +54,20 @@ const handleCategoryClick = (category) => {
 };
 
   const [openKeys, setOpenKeys] = useState(['sub2']); // 기본적으로 sub2가 열려있게 설정
-
   const handleMenuOpenChange = (keys) => {
     setOpenKeys(keys);
   };
-/*
-  const handlePortfolioClick = () => {
-    router.push('/category/portfolio');
-    dispatch(showPostFormAction(false));
-  };
-*/
+
   return (
     <>
     <GlobalStyles />
     <div className="menu-container">
     <StyledMenu
-        openKeys={openKeys} // openKeys prop 추가
-        onOpenChange={handleMenuOpenChange} // onOpenChange prop 추가
+        openKeys={openKeys} 
+        onOpenChange={handleMenuOpenChange} 
         defaultOpenKeys={['sub1']}
         mode="inline"
       >
-       {/* <Menu.Item key="portfolio" onClick={handlePortfolioClick}  icon={<RightOutlined />}>Portfolio</Menu.Item> */}
         <Menu.Divider />
         <StyledSubMenu key="sub2" icon={<RightOutlined />} title="My Study"  >
           {categories.map(category => (

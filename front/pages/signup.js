@@ -22,32 +22,18 @@ const checkPassword = (password) => {
   return hasUpperCase && hasNumber && isLongEnough;
 };
 
-
-
 const Signup = () => {
   const dispatch = useDispatch();
   const router = useRouter();
   const [email, onChangeEmail ] = useInput('');
   const [ nickname, onChangeNickname ] = useInput('');
-
   const [ password, onChangePassword ] = useInput('');
   const [ passwordWarning, setPasswordWarning ] = useState('');
   const [ passwordError, setPasswordError ] = useState(false);
   const [ passwordCheck, setPasswordCheck ] = useState('');
-  
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { signUpLoading, signUpData, signUpDone } = useSelector((state) => state.user);
-
   const {  verifyEmailDone, verifyEmailError } = useSelector((state) => state.user);
-
-  /*
-  useEffect(() => {
-    if (signUpDone) {
-      router.push('/');
-      dispatch({ type: SIGN_UP_RESET })
-    }
-  }, [signUpDone, dispatch, router]);
-*/
 
 useEffect(() => {
   if (signUpDone) {
@@ -65,19 +51,16 @@ useEffect(() => {
     if(!checkPassword(password)) {
       setPasswordWarning("Password must contain at least one uppercase letter, number and at least 8 characters long.");
     } else {
-      setPasswordWarning(''); // 요구사항을 충족하면 경고 메세지를 삭제
+      setPasswordWarning('');
     }
   } else {
-    setPasswordWarning(''); // 비밀번호가 공백이라면 경고 메세지를 삭제
+    setPasswordWarning(''); 
   }
   }, [password]);
 
   useEffect(() => {
     console.log('signUpData', signUpData);
   }, [signUpData]);
-
-
-
   
   const showModal = () => {
     setIsModalOpen(true);
@@ -143,10 +126,12 @@ useEffect(() => {
   return (
     <>
     <div style={{textAlign: 'center'}}>
-    <Link href='/'><Button  type="link" style={{ color: '#526687', padding: 0, fontFamily: 'Candal', fontSize: '1.5rem'}}> 
-        DevDiary
-        </Button></Link>
-      </div>
+      <Link href='/'>
+        <Button  type="link" style={{ color: '#526687', padding: 0, fontFamily: 'Candal', fontSize: '1.5rem'}}> 
+          DevDiary
+        </Button>
+      </Link>
+    </div>
     <div style={{ display: 'flex', justifyContent: 'center', marginTop: '3rem' }}>
     <Card title="Create account" style={{width: 450}}>
     <Form onFinish={onSubmit} style={{maxWidth: 400}}>
@@ -173,26 +158,27 @@ useEffect(() => {
          {passwordError && <Typography style={{ color: '#d9686e', fontSize: '0.8rem', marginTop: '0.2rem', fontWeight: 500 }}><KeyOutlined /> Password does not match.</Typography>}
       </div>
       <div style={{ display: 'flex'}}>
-          <Checkbox name="user-term" checked={term} onChange={onChangeTerm} style={{fontSize: '0.8rem', fontWeight: 500}}>By creating an account, you agree to BiBi's <Button type='link' style={{ fontWeight: 500, fontSize: '0.8rem', padding: 0 }} onClick={showModal}>Conditions of Use</Button>.</Checkbox>
-          
-          <Modal title="Conditions of Use" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+        <Checkbox name="user-term" checked={term} onChange={onChangeTerm} style={{fontSize: '0.8rem', fontWeight: 500}}>By creating an account, you agree to BiBi's <Button type='link' style={{ fontWeight: 500, fontSize: '0.8rem', padding: 0 }} onClick={showModal}>Conditions of Use</Button>.</Checkbox>
+        <Modal title="Conditions of Use" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
         <p>By creating an account, you agree to BiBi's Conditions of Use.</p>
-      </Modal>
-
-          {termError && <Typography style={{ color: '#d9686e', fontSize: '0.8rem', marginTop: '0.2rem', fontWeight: 500 }}><ExclamationCircleOutlined /> You must agree with BiBi's Conditions.</Typography>}
-        </div>
-        <div style={{ marginTop: 10 }}>
-          <Button type="primary" htmlType="submit"  loading={signUpLoading} style={{ width: '100%', backgroundColor: '#343e4f', color: '#e4e6eb', boxShadow: 'none', letterSpacing: '0.05em'}} >Join In</Button>
-        </div>
-        <div style={{ marginTop: 10 }}>
-        <Link href='/'><Button type="primary" style={{width: '100%', backgroundColor: '#e6e6e6', color: '#616263', boxShadow: 'none', letterSpacing: '0.05em'}} >Cancel</Button></Link>
-        </div>
-
+        </Modal>
+        {termError && <Typography style={{ color: '#d9686e', fontSize: '0.8rem', marginTop: '0.2rem', fontWeight: 500 }}><ExclamationCircleOutlined /> You must agree with BiBi's Conditions.</Typography>}
+      </div>
+      <div style={{ marginTop: 10 }}>
+        <Button type="primary" htmlType="submit"  loading={signUpLoading} style={{ width: '100%', backgroundColor: '#343e4f', color: '#e4e6eb', boxShadow: 'none', letterSpacing: '0.05em'}} >Join In</Button>
+      </div>
+      <div style={{ marginTop: 10 }}>
+        <Link href='/'>
+          <Button type="primary" style={{width: '100%', backgroundColor: '#e6e6e6', color: '#616263', boxShadow: 'none', letterSpacing: '0.05em'}} >
+            Cancel
+          </Button>
+        </Link>
+      </div>
         <Divider />
         <Typography style={{fontWeight: 500, fontSize: '0.9rem'}}>Already have an account? 
         <span onClick={handleSignInClick} style={{ cursor: 'pointer', color: '#5683ba', marginLeft: '0.5rem'}}>Sign in</span>
         </Typography>
-    </Form>
+     </Form>
     </Card>
     </div>
     <Footer />

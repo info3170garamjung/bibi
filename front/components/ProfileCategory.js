@@ -1,7 +1,7 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Menu } from 'antd';
-import {  Typography, Divider } from 'antd';
+import { Divider } from 'antd';
 import { RightOutlined } from '@ant-design/icons';
 import { useSelector, useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
@@ -33,10 +33,10 @@ const handleMenuClick = ({ key }) => {
     console.log('Setting active key (in handleMenuClick): ', key);  // Log new active key before setting it
   } else if (key === 'myPost') {
     router.push(`/profile/myposts`);
-    console.log('Setting active key (in handleMenuClick): ', key);  // Log new active key before setting it
+    console.log('Setting active key (in handleMenuClick): ', key);  
   } else if (key === 'editProfile') {
     router.push(`/profile/setting/account`)
-    console.log('Setting active key (in handleMenuClick): ', key);  // Log new active key before setting it
+    console.log('Setting active key (in handleMenuClick): ', key);  
   }
 };
 
@@ -47,27 +47,24 @@ const handleMenuClick = ({ key }) => {
     <GlobalStyles />
       <div>
       <Divider />
-      <Menu 
-      onClick={handleMenuClick} 
-     selectedKeys={[isSelectedMenu]}
-      mode="vertical">
-        <Menu.Item key="home" style={{fontFamily: 'Bitter'}} icon={<RightOutlined />} >
-        Home
-        </Menu.Item>
-        <Menu.Item key="myPost" style={{fontFamily: 'Bitter'}} icon={<RightOutlined />} >
-          My Post
-        </Menu.Item>
-        <Menu.Item key="editProfile" style={{fontFamily: 'Bitter'}} icon={<RightOutlined />} >
-        Edit Profile
-        </Menu.Item>
-
-      </Menu>
+        <Menu 
+          onClick={handleMenuClick} 
+          selectedKeys={[isSelectedMenu]}
+          mode="vertical">
+          <Menu.Item key="home" style={{fontFamily: 'Bitter'}} icon={<RightOutlined />} >
+            Home
+          </Menu.Item>
+          <Menu.Item key="myPost" style={{fontFamily: 'Bitter'}} icon={<RightOutlined />} >
+            My Post
+          </Menu.Item>
+          <Menu.Item key="editProfile" style={{fontFamily: 'Bitter'}} icon={<RightOutlined />} >
+            Edit Profile
+          </Menu.Item>
+        </Menu>
       <Divider />
       </div>
     </>
   );
-
-
 };
 
 

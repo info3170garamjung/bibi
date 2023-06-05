@@ -1,5 +1,3 @@
-
-
 import React from "react"
 import { Typography, Button, Divider, Table } from 'antd';
 import moment from 'moment';
@@ -8,7 +6,6 @@ import { useRouter } from 'next/router';
 const Announcement = () => {
   const router = useRouter();
 
-  // Table에 사용할 data 정의
   const data = [
     {
       key: '1',
@@ -42,31 +39,28 @@ const Announcement = () => {
       key: 'date'
     },
   ];
+
   return(
     <>
     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-<Typography style={{fontSize: '1.1rem', fontWeight: 'bold', color: '#606061'}}>Announcement</Typography>
-<Button type="text" style={{color: '#bdbfbe'}} ghost >All</Button>
-</div>
-<div style={{marginTop: '2rem'}}>
-    <Table 
-    size="small" 
-    columns={columns} 
-    dataSource={data} 
-    pagination={false} 
-    onRow={(record) => {
-      return {
-        onClick: () => {
-          router.push(`/announcement/${record.key}`);
-        },
-        style: { cursor: "pointer"}
-      };
-    }}
-    
-    />
+      <Typography style={{fontSize: '1.1rem', fontWeight: 'bold', color: '#606061'}}>Announcement</Typography>
+      <Button type="text" style={{color: '#bdbfbe'}} ghost >All</Button>
     </div>
-   {/* <Divider /> */}
-
+    <div style={{marginTop: '2rem'}}>
+      <Table 
+        size="small" 
+        columns={columns} 
+        dataSource={data} 
+        pagination={false} 
+        onRow={(record) => {
+        return {
+          onClick: () => {
+          router.push(`/announcement/${record.key}`);},
+          style: { cursor: "pointer"}
+          };
+        }}
+        />
+    </div>
     </>
   )
 }

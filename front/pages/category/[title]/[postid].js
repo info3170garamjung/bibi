@@ -13,7 +13,6 @@ import {
 import { 
   REMOVE_POST_REQUEST,
 } from '../../../reducers/post';
-
 import { setEditingStatus, showPostFormAction } from '../../../reducers/post'
 
 const PostDetail = () => {
@@ -49,12 +48,10 @@ const id = useSelector((state) => state.user.me?.id);
 
   return (
     <AppLayout>
-          <div style={{display: 'flex', justifyContent: 'space-between'}}> 
-          <div>
-          <Button type="text" icon={<LeftCircleOutlined style={{color: '#c7c7c7'}}/>} style={{color: '#84a6f5'}}></Button>
-
-          </div>
-          <div>
+      <div style={{display: 'flex', justifyContent: 'space-between'}}> 
+        <div>
+        </div>
+        <div>
           {id && post && post.User && post.User.id === id
           ? (
             <>
@@ -63,9 +60,9 @@ const id = useSelector((state) => state.user.me?.id);
           </>
           ) 
           : null
-            }
-            </div>
+        }
         </div>
+    </div>
 
       <div style={{margin: '1.5rem'}}>
         <Space direction="vertical">

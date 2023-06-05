@@ -10,7 +10,6 @@ export const initialState = {
   signUpDone: false,
   signUpError: null,
   me: null,
-  //me: {nickname: 'red', email: 'bibi@gmail.com'},
  signUpData: [],
   loginData: {},
   changeNicknameLoading: false,
@@ -160,40 +159,7 @@ export default (state = initialState, action) => {
         logInError: null,
         logInDone: false
       }; 
-      /*
-case LOG_IN_SUCCESS: 
-  const loggedInUser = state.signUpData.find(user => user.email === action.data.email && user.password === action.data.password); 
-  if (loggedInUser) {
-    const user = {
-      email: loggedInUser.email,
-      password: loggedInUser.password,
-      nickname: loggedInUser.nickname,
-      id: loggedInUser.id,
-    };
-    console.log('user', user);
-    console.log('me', state.me);
-    
-    const newState = {
-      ...state,
-      logInLoading: false,
-      logInDone: true,
-      me: user,
-    };
-
-    console.log('newState.me', newState.me);
-    console.log('newState.me.id', newState.me.id);
-
-    return newState;
-    } else {
-      return {
-        ...state,
-      logInLoading: false,
-      logInDone: false,
-      logInError: '로그인에 실패하였습니다',
-      };
-    }
-    */
-   case LOG_IN_SUCCESS:
+    case LOG_IN_SUCCESS:
       const loggedInUser = state.signUpData.find(user => user.email === action.data.email && user.password === action.data.password);
       if (loggedInUser) {
         const user = {
@@ -217,19 +183,11 @@ case LOG_IN_SUCCESS:
           logInError: 'Email or password does not match',
         };
       }
-    /*
-    case LOG_IN_FAILURE: 
-      return {
-        ...state,
-        logInLoading: false,
-        logInError: action.error,
-      }; 
-    */
    case LOG_IN_FAILURE:
     return {
       ...state,
       logInLoading: false,
-      logInError: action.error || 'Unexpected error occurred', // 에러 메세지 추가
+      logInError: action.error || 'Unexpected error occurred', 
     }
 
 
@@ -247,7 +205,7 @@ case LOG_IN_SUCCESS:
         ...state,
         logOutLoading: false,
         logOutDone: true,
-        logInDone: false, // 추가된 부분
+        logInDone: false, 
         me: null,
       };
     
@@ -277,7 +235,6 @@ case LOG_IN_SUCCESS:
         ...state,
         signUpLoading: false,
         signUpDone: true,
-      // signUpData: [{ ...action.data }]
         signUpData: state.signUpData.concat(action.data)
     };
 
