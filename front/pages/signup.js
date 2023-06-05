@@ -1,8 +1,6 @@
 
-
 import React, {useState, useCallback, useEffect} from "react";
 import { Form, Modal, Input, Card, Checkbox, Divider, Button, Typography, Alert } from 'antd';
-import useInput from './hooks/useInput';
 import Footer from '../components/Footer';
 import Link from "next/link";
 import { 
@@ -25,15 +23,27 @@ const checkPassword = (password) => {
 const Signup = () => {
   const dispatch = useDispatch();
   const router = useRouter();
-  const [email, onChangeEmail ] = useInput('');
-  const [ nickname, onChangeNickname ] = useInput('');
-  const [ password, onChangePassword ] = useInput('');
+  const [email, setEmail] = useState('');
+  const [nickname, setNickname] = useState('');
+  const [password, setPassword] = useState('');
   const [ passwordWarning, setPasswordWarning ] = useState('');
   const [ passwordError, setPasswordError ] = useState(false);
   const [ passwordCheck, setPasswordCheck ] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { signUpLoading, signUpData, signUpDone } = useSelector((state) => state.user);
   const {  verifyEmailDone, verifyEmailError } = useSelector((state) => state.user);
+
+  const onChangeEmail = useCallback((e) => {
+    setEmail(e.target.value);
+  }, []);
+
+  const onChangeNickname = useCallback((e) => {
+    setNickname(e.target.value);
+  }, []);
+
+  const onChangePassword = useCallback((e) => {
+    setPassword(e.target.value);
+  }, []);
 
 useEffect(() => {
   if (signUpDone) {

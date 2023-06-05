@@ -1,6 +1,6 @@
-import React, { useCallback, useEffect } from "react";
+
+import React, { useState, useCallback, useEffect } from "react";
 import { Form, Input, Card, Divider, Button, Typography } from 'antd';
-import useInput from './hooks/useInput';
 import Footer from '../components/Footer';
 import Link from "next/link";
 import { useDispatch, useSelector } from 'react-redux';
@@ -12,8 +12,8 @@ const Signin = () => {
   const dispatch = useDispatch();
   const { logInLoading, logInError, logInDone } = useSelector((state) => state.user);
 
-  const [email, onChangeEmail ] = useInput('');
-  const [ password, onChangePassword ] = useInput('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   useEffect(() => {
     if (logInDone) {
@@ -26,6 +26,14 @@ const Signin = () => {
       alert(logInError);
     }
   }, [logInError]);
+
+  const onChangeEmail = useCallback((e) => {
+    setEmail(e.target.value);
+  }, []);
+
+  const onChangePassword = useCallback((e) => {
+    setPassword(e.target.value);
+  }, []);
 
   const onSubmitForm = useCallback(() => {
     console.log(email, password);
