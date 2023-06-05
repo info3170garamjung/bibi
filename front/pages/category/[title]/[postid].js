@@ -6,7 +6,6 @@ import React, {useCallback} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 const { Text } = Typography;
 import { 
-  LeftCircleOutlined ,
   DeleteFilled,
   ScissorOutlined,
 } from '@ant-design/icons';
@@ -75,7 +74,8 @@ const id = useSelector((state) => state.user.me?.id);
         <div style={{ marginTop: '2rem' }}>
           {post?.content ? (
             <div dangerouslySetInnerHTML={{ __html: post.content }} />
-          ) : (
+        
+            ) : (
             <div>No Post found.</div>
           )}
         </div>
@@ -85,3 +85,5 @@ const id = useSelector((state) => state.user.me?.id);
 };
 
 export default PostDetail;
+
+
