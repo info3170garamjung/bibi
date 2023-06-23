@@ -1,5 +1,4 @@
 
-
 import React, { useState, useCallback, useEffect } from 'react';
 import { HeartOutlined } from '@ant-design/icons';
 import { Button, Form, Input } from 'antd';
@@ -9,11 +8,15 @@ import FormCategory from './FormCategory';
 import PostFormLayout from './PostFormLayout';
 import { useRouter } from 'next/router';
 import GlobalStyles from './GlobalStyles';
-const { TextArea } = Input;
+import CKEditor from 'react-ckeditor-component';
+import editorConfig from './editorConfig';
 
 const PostForm = ({ post }) => {
+
+
+
   const isEditing = useSelector((state) => state.post.isEditing);
-  const [content, setContent] = useState('');
+  const [editorData, setEditorData] = useState('');
   const { addPostDone } = useSelector((state) => state.post);
   const dispatch = useDispatch();
   const [text, setText] = useState('');
@@ -28,9 +31,11 @@ const PostForm = ({ post }) => {
   console.log('post', post);
   console.log('isEditing', isEditing);
 
-  const handleContentChange = useCallback((e) => {
-    setContent(e.target.value);
-  }, []);
+
+const handleEditorChange = (event) => {
+  const data = event.editor.getData();
+  setEditorData(data);
+};
 
 
   const handleChangeCategory = useCallback((value) => {
@@ -47,17 +52,19 @@ const PostForm = ({ post }) => {
       console.log('post', post);
       setText(post.title);
       setCategory(post.category);
-      setContent(post.content);
+      setEditorData(post.content);
       console.log('post.title', post.title);
       console.log('post.category', post.category);
       console.log('post.content', post.content);
     }
   }, [isEditing, post]);
 
+
+
   useEffect(() => {
     if (addPostDone && !isEditing) {
       setText('');
-      setContent('');
+      setEditorData('');
       setCategory(null);
     }
   }, [addPostDone, isEditing]);
@@ -67,12 +74,16 @@ const PostForm = ({ post }) => {
   }, []);
 
   const onSubmit = useCallback(() => {
+    if (!category || !text || !editorData) {
+      alert('Please complete all fields.');
+      return;
+    }
     if (isEditing) {
       const updatedPostData = {
         id: post.id,
         title: text,
         category,
-        content,
+        content: editorData,
         User: {
           nickname,
         },
@@ -83,7 +94,7 @@ const PostForm = ({ post }) => {
       const data = {
         title: text,
         category,
-        content,
+        content: editorData,
         User: {
           nickname,
         },
@@ -92,8 +103,8 @@ const PostForm = ({ post }) => {
       dispatch(addPost(data));
     }
 
-    console.log(text, category, content);
-  }, [text, category, content, nickname, isEditing]);
+    console.log(text, category, editorData);
+  }, [text, category, editorData, nickname, isEditing]);
 
   return (
     <>
@@ -132,17 +143,31 @@ const PostForm = ({ post }) => {
           </Form.Item>
 
           <Form.Item label="Content">
-          <TextArea
-              value={content}
-              onChange={handleContentChange}
-              style={{ width: '100%' }}
-              autoSize={{ minRows: 12 }}
+          {/*
+          <CKEditor
+  activeClass="p10"
+  content={editorData}
+  events={{
+    change: handleEditorChange
+  }}
+/>
+*/}
+ <CKEditor
+              activeClass="p10"
+              content={editorData}
+              events={{
+                change: handleEditorChange
+              }}
+              config={editorConfig} // editorConfig.js에서 가져온 구성 객체 전달
             />
+          
           </Form.Item>
-        </PostFormLayout>
+        </PostFormLayout>s
       </div>
     </>
   );
 };
 
 export default PostForm;
+
+

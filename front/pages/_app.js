@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import HEAD from 'next/head';
 import wrapper from '../store/configureStore';
 import './category/styles.css';
-
 const BiBi = ( {Component} ) => {
   return (
     <>

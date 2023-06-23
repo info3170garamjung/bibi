@@ -1,6 +1,14 @@
 import { createGlobalStyle } from 'styled-components';
 
+
 const GlobalStyles = createGlobalStyle`
+
+blockquote {
+  padding: 10px 20px;
+  margin: 0 0 20px;
+  font-size: 1.25em;
+  border-left: 5px solid #eee;
+}
 
 .ant-input::placeholder {
   font-family: 'Bitter';
