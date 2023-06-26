@@ -86,3 +86,4 @@ const handleCategoryClick = (category) => {
 };
 
 export default Category;
+

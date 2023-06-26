@@ -10,6 +10,30 @@ import { useRouter } from 'next/router';
 import GlobalStyles from './GlobalStyles';
 import CKEditor from 'react-ckeditor-component';
 import editorConfig from './editorConfig';
+import styled from 'styled-components';
+
+const StyledInput = styled(Input)`
+
+
+  &.custom-placeholder-large::placeholder {
+    font-size: 30px;
+    font-weight: bold;
+  }
+
+  &:focus {
+    border-color: none;
+    box-shadow: none;
+  }
+
+`;
+
+const EditorStyled = styled(CKEditor)`
+cke_top  {
+  border-bottom: none; !important
+}
+
+`
+
 
 const PostForm = ({ post }) => {
 
@@ -109,65 +133,57 @@ const handleEditorChange = (event) => {
   return (
     <>
       <GlobalStyles />
-      <div>
-        <PostFormLayout onSubmit={onSubmit}>
+      <div className="custom-div">
+        <PostFormLayout 
+        onSubmit={onSubmit}
+        >
           <div
             style={{
-              display: 'flex',
-              justifyContent: 'flex-end',
+             display: 'flex',
+             justifyContent: 'flex-end',
               marginTop: '1rem',
               marginBottom: '1rem',
             }}
           >
             <div>
               <Button
-                type="text"
                 icon={<HeartOutlined />}
-                style={{ color: '#84a6f5', fontWeight: 500 }}
+                style={{ backgroundColor:'rgb(52, 62, 79)', color: '#edeef0', fontWeight: 500 }}
                 htmlType="submit"
               >
-                Share
+                Post
               </Button>
             </div>
           </div>
-
-          <Form.Item label="Category">
+          <Form.Item>
             <FormCategory
               handleChangeCategory={handleChangeCategory}
               selectedCategory={category}
             />
           </Form.Item>
-
-          <Form.Item label="Title">
-            <Input value={text} onChange={onChangeText} placeholder="Enter the header" />
+          <Form.Item>
+            <StyledInput 
+            value={text} 
+            onChange={onChangeText} 
+            placeholder="Enter the header" 
+            className="custom-placeholder-large" 
+            style={{border: 'none', fontSize: '30px', fontWeight: 'bold'}} />
           </Form.Item>
-
-          <Form.Item label="Content">
-          {/*
-          <CKEditor
-  activeClass="p10"
-  content={editorData}
-  events={{
-    change: handleEditorChange
-  }}
-/>
-*/}
- <CKEditor
+            <Form.Item>
+ <EditorStyled
               activeClass="p10"
               content={editorData}
               events={{
                 change: handleEditorChange
               }}
               config={editorConfig} // editorConfig.js에서 가져온 구성 객체 전달
+              className="custom-ckeditor"
             />
-          
           </Form.Item>
-        </PostFormLayout>s
-      </div>
+        </PostFormLayout>
+        </div>
     </>
   );
 };
 
 export default PostForm;
-
-

@@ -1,0 +1,14 @@
+/* my-custom-theme.css */
+
+/* 예시: .cke_top 스타일 변경 */
+.cke_top {
+  border-bottom: none !important; 
+  background: rgba(13, 49, 110, 0.07) !important;
+  border-radius: 4px !important;
+}
+
+.cke_chrome {
+  border-radius: 10px !important;
+  border: none !important;
+}
+

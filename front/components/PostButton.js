@@ -8,10 +8,6 @@ const PostButton = () => {
   const router = useRouter();
   const dispatch = useDispatch();
 
-  const buttonStyle = {
-    textAlign: 'center',
-    margin: '0.5rem 0'
-  };
 
   const handleClick = () => {
     router.push('/')
@@ -20,9 +16,10 @@ const PostButton = () => {
   }
   return (
     <>
-     <div style={buttonStyle}>
-        <Space direction="vertical" style={{marginTop: '1rem'}}>
-        <Button style={{fontWeight: 500, backgroundColor: '#5d708e', border:'none', fontSize: '0.8rem', fontFamily: 'Bitter', color:'#d5d8f6', marginBottom: '1.2rem'}} onClick={handleClick}>New Post</Button>
+     <div>
+        <Space direction="vertical">
+
+        <Button type="text" style={{fontFamily: 'Bitter', fontSize: '0.9rem', color: '#fff', borderColor: '#fff',  padding: '0 10px' }} onClick={handleClick}>Post</Button>
         </Space>
      </div>
     </>

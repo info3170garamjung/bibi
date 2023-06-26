@@ -3,6 +3,13 @@ import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyles = createGlobalStyle`
 
+
+
+.custom-div {
+  max-width: 100%;
+}
+
+
 blockquote {
   padding: 10px 20px;
   margin: 0 0 20px;

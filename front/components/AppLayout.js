@@ -1,9 +1,10 @@
+
+
 import React, { useEffect } from 'react';
 import { Col, Row } from 'antd';
 import Category from './Category';
 import Header from './Header';
 import Footer from "./Footer";
-import PostButton from './PostButton';
 import PostForm from './PostForm';
 import ProfileCategory from './ProfileCategory';
 import MainPage from './MainPage';
@@ -33,12 +34,9 @@ const AppLayout = ({ children, excludeCategory = false, excludePostButton = fals
   return (
     <>
     <GlobalStyles />
-    <Header />
+    <Header showPostButton={!excludePostButton && me && !isEditingPage && !showPostForm} />
     <Row gutter={10} style={{paddingTop: '4rem'}}>
       <Col xs={24} md={4}> 
-      <div style={{ display: 'flex', justifyContent: 'space-around' }}>
-      {!excludePostButton && !isEditingPage  && me && !showPostForm && (<PostButton />)}
-      </div>
       {!excludeCategory && <Category/>}
       {excludeCategory && <ProfileCategory />}
       </Col>
@@ -54,7 +52,6 @@ const AppLayout = ({ children, excludeCategory = false, excludePostButton = fals
 }
 
 export default AppLayout;
-
 
 
 

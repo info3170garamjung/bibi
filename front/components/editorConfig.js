@@ -10,7 +10,8 @@ const editorConfig = {
     { name: 'styles', items: ['Format', 'Bold', 'Italic', 'Strike', 'TextColor', 'BGColor', 'NumberedList', 'BulletedList', 'Blockquote'] },
     { name: 'paragraph', items: ['Heading', 'Paragraph'] }
   ],
-  language: 'en'
+  language: 'en',
+  height: '50vh',
 };
 
 export default editorConfig;

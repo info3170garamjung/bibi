@@ -44,7 +44,7 @@ const Announcement = () => {
     <>
     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
       <Typography style={{fontSize: '1.1rem', fontWeight: 'bold', color: '#606061'}}>Announcement</Typography>
-      <Button type="text" style={{color: '#bdbfbe'}} ghost >All</Button>
+      <Button style={{color: '#bdbfbe'}} ghost >All</Button>
     </div>
     <div style={{marginTop: '2rem'}}>
       <Table 
