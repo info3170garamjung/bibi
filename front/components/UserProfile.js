@@ -32,7 +32,28 @@ const UserProfile = () => {
   return (
     <div style={{ display: 'flex', justifyContent: 'flex-end'}}>
       <div onClick={toggleMenu} >
-        <Avatar shape="square" style={{ backgroundColor: '#000', color: '#fff'}}>{me.nickname[0].toUpperCase()}</Avatar> 
+        <Avatar 
+        shape="circle" 
+        size={{ sm: 50 }}
+        style={{ 
+          backgroundColor: '#000', 
+          color: '#fff',
+          alignItems: 'center',
+          justifyContent: 'center',
+          overflow: 'hidden',
+          display: 'flex'      
+        }}>
+          {me.profileImage ? (
+            <img
+              src={URL.createObjectURL(me.profileImage)}
+              alt="MyProfilePhoto"
+              />
+          ) : (
+            <>
+           {me.nickname[0].toUpperCase()}
+            </>
+          )}
+       </Avatar> 
       </div>
 
       {isMenuOpen && (

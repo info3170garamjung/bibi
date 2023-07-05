@@ -18,8 +18,16 @@ const PostButton = () => {
     <>
      <div>
         <Space direction="vertical">
-
-        <Button type="text" style={{fontFamily: 'Bitter', fontSize: '0.9rem', color: '#fff', borderColor: '#fff',  padding: '0 10px' }} onClick={handleClick}>Post</Button>
+        <Button type="text" 
+        style={{
+          fontFamily: 'Bitter', 
+          fontSize: '0.9rem', 
+          color: '#000', 
+          backgroundColor: '#adadad',
+          padding: '0 10px' }} 
+          onClick={handleClick}>
+            Post
+        </Button>
         </Space>
      </div>
     </>
