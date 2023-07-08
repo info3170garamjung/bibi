@@ -137,7 +137,7 @@ export default EditProfile;
 import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
 import AppLayout from '../../components/AppLayout';
-import { Typography, Button, Divider, Card, Avatar } from 'antd';
+import { Typography, Button, Divider, Card, Avatar, Image } from 'antd';
 import React, { useEffect, useState } from 'react';
 
 const EditProfile = () => {
@@ -184,10 +184,25 @@ const EditProfile = () => {
             display: 'flex'        
             }}>
               {me.profileImage ? (
-                <img
+                 <div style={{ 
+                  width: '100%', 
+                  height: '100%', 
+                  display: 'flex', 
+                  alignItems: 'center', 
+                  justifyContent: 'center',
+                  }}>
+                <Image
                 src={URL.createObjectURL(me.profileImage)}
                 alt="Profile"
+                style={{ 
+                  width: '100%', 
+                height: '100%', 
+                objectFit: 'cover',
+                transform: 'scale(2.2)'
+              }}
+              preview={false}
                 />
+              </div>
               ) : (
                 me.nickname[0].toUpperCase()
 

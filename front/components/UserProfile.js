@@ -1,6 +1,6 @@
 
 import React, { useCallback, useState } from 'react';
-import { Button, Avatar, Card } from 'antd';
+import { Button, Avatar, Card, Image } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { logoutRequestAction } from '../reducers/user';
 import { showPostFormAction } from '../reducers/post';
@@ -44,10 +44,25 @@ const UserProfile = () => {
           display: 'flex'      
         }}>
           {me.profileImage ? (
-            <img
+            <div style={{
+              width: '100%',
+              height: '100%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}>
+            <Image
               src={URL.createObjectURL(me.profileImage)}
               alt="MyProfilePhoto"
+              style={{
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover',
+                transform: 'scale(2.2)'
+              }}
+              preview={false}
               />
+              </div>
           ) : (
             <>
            {me.nickname[0].toUpperCase()}

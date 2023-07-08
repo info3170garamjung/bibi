@@ -71,7 +71,7 @@ export default account;
 import React, { useState, useEffect, useRef } from 'react';
 import AppLayout from '../../../components/AppLayout';
 import { useSelector, useDispatch } from 'react-redux';
-import { Card, Typography, Avatar, Button, Input, notification } from 'antd';
+import { Card, Image, Typography, Avatar, Button, Input, notification } from 'antd';
 import { changeNicknameRequestAction, changeProfileImageAction } from '../../../reducers/user';
 
 const account = () => {
@@ -88,8 +88,8 @@ const account = () => {
     if(selectedImage !== null) {
       // 프로필사진이 변경된 후에 알림 메세지 표시
       notification.open({
-        message: '프로필 사진 변경',
-        description: '프로필 사진이 변경되었습니다.'
+        message: 'Profile Picture Updated',
+        description: 'Your profile picture has been changed.'
       })
     }
   }, [selectedImage]);
@@ -134,8 +134,8 @@ const account = () => {
           <Card>
             <div style={{margin: '3rem'}}>
               <Typography style={{fontSize: '0.9rem', fontWeight: 'bold'}}>Profile Image</Typography>
-            <div style={{marginTop: '1.1rem', marginBottom: '1.1rem', display: 'flex', alignItems: 'center'}}>
-            <Avatar
+            <div style={{marginTop: '1.1rem', marginBottom: '1.1rem', display: 'flex', alignItems: 'center', justfyContent: 'center'}}>
+  <Avatar
   shape="circle"
   size={{ xs: 32, sm: 42, md: 60, lg: 80, xl: 110, xxl: 130 }}
   style={{ 
@@ -145,20 +145,37 @@ const account = () => {
     alignItems: 'center',
     justifyContent: 'center',
     overflow: 'hidden',
-    display: 'flex'
+    display: 'flex',
   }}
   onClick={handleAvatarClick}
 >
+  
   {me.profileImage ? (
-    <img
+    <div style={{ 
+      width: '100%', 
+      height: '100%', 
+      display: 'flex', 
+      alignItems: 'center', 
+      justifyContent: 'center',
+      }}>
+    <Image
       src={URL.createObjectURL(me.profileImage)}
       alt="Selected"
-    />
+      style={{ 
+        width: '100%', 
+      height: '100%', 
+      objectFit: 'cover',
+      transform: 'scale(2.2)'
+    }}
+     preview={false}
+      />
+      </div>
   ) : (
     <>
       {me.nickname[0].toUpperCase()}
     </>
   )}
+
   </Avatar>
 
   <input
