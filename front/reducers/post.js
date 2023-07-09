@@ -10,7 +10,8 @@ export const initialState = {
     },
     category: 'JavaScript',
     content: '<strong>JavaScript Object:</strong> An object in JavaScript, like in real life, can be seen as a collection of properties. A property is a key-value pair where the key is typically a string, and the value can be anything. For example, a car object might have properties like brand, model, and color. Objects in JavaScript are dynamic, which means that properties can be added, modified, and deleted after the creation of an object.',
-    title: 'Javascript-Object'
+    title: 'Javascript-Object',
+    createdAt: '2023-01-01'
   },
   {
     id: '2stId',
@@ -20,7 +21,8 @@ export const initialState = {
     },
     category: 'JavaScript',
     content: '<strong>JavaScript Array:</strong> In JavaScript, arrays are used to store multiple values in a single variable. Arrays can contain any type of elements, including numbers, strings, objects or even other arrays. They are zero-indexed: the first element is indexed with the number 0. JavaScript arrays are dynamic, so you can add and remove elements from an array at any time.',
-    title: 'Javascript-Array'
+    title: 'Javascript-Array',
+    createdAt: '2023-01-02'
   },
   {
     id: '3stId',
@@ -30,7 +32,8 @@ export const initialState = {
     },
     category: 'TypeScript',
     content: '<strong>TypeScript vs JavaScript:</strong> TypeScript is a super set of JavaScript. It has been built and maintained by Microsoft and was first launched in 2012. TypeScript is JavaScript but with a type layer on top. This means that your JavaScript code can be written in TypeScript. With the type layer, we have better tooling and can spot errors at compile time rather than at run time.',
-    title: 'Difference between Typescript and Javascript'
+    title: 'Difference between Typescript and Javascript',
+    createdAt: '2023-01-05',
   },
   {
     id: '4stId',
@@ -40,7 +43,8 @@ export const initialState = {
     },
     category: 'React',
     content: '<strong>React DOM:</strong> ReactDOM is the glue between React and the DOM. Often, you will use it to hook up React to an existing DOM node with the ReactDOM.render() method. ReactDOM provides a few other methods you might find useful, however, most of your interaction with ReactDOM will be through the React component API.',
-    title: 'React Dom'
+    title: 'React Dom',
+    createdAt: '2023-01-07'
   },
   {
     id: '5stId',
@@ -50,7 +54,8 @@ export const initialState = {
     },
     category: 'NodeJS',
     content: '<strong>NodeJS:</strong> Node.js is an open-source, cross-platform JavaScript runtime environment for server-side and networking applications. Node.js applications are written in JavaScript and can be run within the Node.js runtime on a wide variety of platforms. Node.js uses an event-driven, non-blocking I/O model that makes it lightweight and efficient, perfect for data-intensive real-time applications that run across distributed devices.',
-    title: 'What is NodeJS?'
+    title: 'What is NodeJS?',
+    createdAt: '2023-01-01'
   },
   {
     id: '6stId',
@@ -60,7 +65,8 @@ export const initialState = {
     },
     category: 'GIT',
     content: '<strong>Github:</strong> GitHub is a web-based hosting service for version control using Git. It is designed for coordinating work among programmers, but it can be used to track changes in any set of files. Its main goals include speed, data integrity, and support for distributed, non-linear workflows.',
-    title: 'What is Github?'
+    title: 'What is Github?',
+    createdAt: '2023-01-02'
   },
   {
     id: '7stId',
@@ -70,7 +76,8 @@ export const initialState = {
     },
     category: 'JavaScript',
     content: '<strong>JavaScript Types:</strong> JavaScript is a dynamically typed language. This means you do not have to specify the data type of a variable when you declare it, and data types can change within the script at runtime. JavaScript has six primitive data types: undefined, null, boolean, number, string, and symbol. There is also a complex data type, the Object.',
-    title: 'Javascript-Type'
+    title: 'Javascript-Type',
+    createdAt: '2023-01-04'
   },
   {
     id: '8stId',
@@ -80,7 +87,8 @@ export const initialState = {
     },
     category: 'JavaScript',
     content: '<strong>JavaScript Functions:</strong> In JavaScript, a function allows you to define a block of code, give it a name and then execute it as many times as you want. A function can be defined using function declaration, function expression, or using the newer ES6 arrow functions. Functions can also be defined as methods in objects.',
-    title: 'Javascript-Function'
+    title: 'Javascript-Function',
+    createdAt: '2023-01-05'
   },
   {
     id: '9stId',
@@ -90,7 +98,8 @@ export const initialState = {
     },
     category: 'JavaScript',
     content: '<strong>JavaScript Classes:</strong> JavaScript classes introduced in ES6 are syntactical sugar over JavaScript’s existing prototype-based inheritance. The class syntax does not introduce a new object-oriented inheritance model to JavaScript. A class is a type of function, but instead of using the keyword function to initiate it, we use the keyword class.',
-    title: 'Javascript-Class'
+    title: 'Javascript-Class',
+    createdAt: '2023-01-06'
   },
   {
     id: '10stId',
@@ -100,7 +109,8 @@ export const initialState = {
     },
     category: 'JavaScript',
     content: '<strong>JavaScript JSON:</strong> JSON stands for JavaScript Object Notation. It is a standard text-based format for representing structured data based on JavaScript object syntax. It is commonly used for transmitting data in web applications (e.g., sending some data from the server to the client, so it can be displayed on a web page). JSON is a language-independent data format.',
-    title: 'Javascript-JSON'
+    title: 'Javascript-JSON',
+    createdAt: '2023-01-01'
   },
 
 ],

@@ -4,6 +4,7 @@ import AppLayout from '../../../components/AppLayout';
 import { Space, Typography, Divider, Button } from 'antd';
 import React, {useCallback} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { formatDate } from '../../../utils/dateUtils';
 const { Text } = Typography;
 import { 
   DeleteFilled,
@@ -28,6 +29,28 @@ const id = useSelector((state) => state.user.me?.id);
     console.log("p.id:", p.id, "id:", postid);
     return p.id === postid;
   });
+/*
+  const formatDate = (createdAt) => {
+    const now = new Date();
+    const createdAtDate = new Date(createdAt);
+    const diffTime = Math.abs(now - createdAtDate);
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    const diffHours = Math.floor(diffTime / (1000 * 60 * 60));
+    const diffMinutes = Math.floor(diffTime / (1000 * 60));
+
+    if (diffMinutes < 1) {
+      return 'Just now'
+    } else if (diffMinutes < 60) {
+      return `${diffMinutes} minute${diffMinutes > 1 ? 's' : ''} ago`;
+    } else if (diffHours < 24) {
+      return `${diffHours} hour${diffHours > 1 ? 's' : ''} ago`;
+    } else if (diffDays < 10) {
+      return `${diffDays} day${diffDay > 1 ? 's': ''} ago`;
+    } else {
+      return createdAtDate.toISOString().split(T)[0];
+    }
+  };
+  */
 
   const onRemovePost = useCallback(() => {
     dispatch({
@@ -68,8 +91,12 @@ const id = useSelector((state) => state.user.me?.id);
           <Text type="secondary" style={{ fontSize: '1rem' }}>
             {title}
           </Text>
-          <Text style={{ fontSize: '1.3rem', color: '#666d78'}}>{post?.title}</Text> 
+          <Text style={{ fontSize: '1.7rem', color: '#262625', fontWeight: 'bold'}}>{post?.title}</Text> 
         </Space>
+        <div style={{marginTop: '1.5rem'}}>
+        <Text style={{ fontSize: '0.9rem', color:'#262625', fontWeight: 500, marginRight: '2rem'}}>{post?.User.nickname}</Text>
+        <Text style={{ fontSize: '0.9rem', color: '#262625'}}>{formatDate(post?.createdAt)}</Text>
+        </div>
         <Divider />
         <div style={{ marginTop: '2rem' }}>
           {post?.content ? (

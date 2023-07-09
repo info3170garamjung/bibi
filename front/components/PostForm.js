@@ -102,6 +102,9 @@ const handleEditorChange = (event) => {
       alert('Please complete all fields.');
       return;
     }
+
+    const currentTime = new Date().toISOString();
+
     if (isEditing) {
       const updatedPostData = {
         id: post.id,
@@ -122,6 +125,7 @@ const handleEditorChange = (event) => {
         User: {
           nickname,
         },
+        createdAt: currentTime,
       };
 
       dispatch(addPost(data));
