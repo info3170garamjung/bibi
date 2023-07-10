@@ -18,6 +18,13 @@ import { setEditingStatus, showPostFormAction } from '../../../reducers/post'
 const formatDate = (createdAt) => {
   const now = new Date();
   const createdAtDate = new Date(createdAt);
+
+    // 유효한 날짜 확인
+    if (isNaN(createdAtDate.getTime())) {
+      console.error('Invalid createdAt:', createdAt);
+      return 'Invalid date';
+    }
+    
   const diffTime = Math.abs(now - createdAtDate);
   const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
   const diffHours = Math.floor(diffTime / (1000 * 60 * 60));
