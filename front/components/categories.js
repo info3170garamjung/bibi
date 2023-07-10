@@ -33,4 +33,8 @@ export const categories = [
     key: '7',
     title: 'Database'
   },
+  {
+    key: '8',
+    title: 'Announce'
+  }
 ];

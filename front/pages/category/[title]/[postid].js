@@ -4,7 +4,7 @@ import AppLayout from '../../../components/AppLayout';
 import { Space, Typography, Divider, Button } from 'antd';
 import React, {useCallback} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-//import { formatDate } from '../../../utils/dateUtils';
+// import { formatDate } from '../../../utils/dateUtils';
 const { Text } = Typography;
 import { 
   DeleteFilled,
@@ -24,7 +24,7 @@ const formatDate = (createdAt) => {
       console.error('Invalid createdAt:', createdAt);
       return 'Invalid date';
     }
-    
+
   const diffTime = Math.abs(now - createdAtDate);
   const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
   const diffHours = Math.floor(diffTime / (1000 * 60 * 60));

@@ -112,6 +112,18 @@ export const initialState = {
     title: 'Javascript-JSON',
     createdAt: '2023-01-01'
   },
+  {
+    id: '11stId',
+    User: {
+      id: 11,
+      nickname: 'red',
+    },
+    category: 'Announce',
+    content: '<strong>Announcement Update:</strong> We are excited to announce several key updates to our platform. Firstly, we have introduced a 150-character preview of posts to give you a snapshot of the content before diving in. In addition, the creation date is now prominently displayed on each post, providing a clear timeline of information. For ease of data management, we have incorporated a table deletion feature. Lastly, in our effort to personalize your experience, you can now update your profile picture. We believe these updates will significantly enhance your user experience, as we continue to make our platform more user-centric and intuitive.',
+    title: 'Announcement Update',
+    createdAt: '2023-07-10'
+  },
+
 
 ],
   addPostLoading: false,

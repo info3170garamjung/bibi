@@ -71,8 +71,9 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 const { Text } = Typography;
 import Link from 'next/link';
-//import { formatDate } from '../../utils/dateUtils';
-//import { stripHtmlTags } from '../../utils/stripHtmlTags';
+// import { formatDate } from '../../utils/dateUtils';
+// import { stripHtmlTags } from '../../utils/stripHtmlTags';
+
 
 const stripHtmlTags = (str) => {
   if((str === null) || (str === ''))
@@ -95,7 +96,8 @@ const formatDate = (createdAt) => {
       return 'Invalid date';
     }
 
-    
+// 주석
+// 주석2
   const diffTime = Math.abs(now - createdAtDate);
   const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
   const diffHours = Math.floor(diffTime / (1000 * 60 * 60));
