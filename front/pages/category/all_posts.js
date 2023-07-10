@@ -71,9 +71,10 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 const { Text } = Typography;
 import Link from 'next/link';
-//import { formatDate } from '../../utils/dateUtils';
-//import { stripHtmlTags } from '../../utils/stripHtmlTags';
+import { formatDate } from '../../utils/dateUtils';
+import { stripHtmlTags } from '../../utils/stripHtmlTags';
 
+/*
 const stripHtmlTags = (str) => {
   if((str === null) || (str === ''))
     return false;
@@ -95,7 +96,7 @@ const formatDate = (createdAt) => {
       return 'Invalid date';
     }
 
-    
+
   const diffTime = Math.abs(now - createdAtDate);
   const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
   const diffHours = Math.floor(diffTime / (1000 * 60 * 60));
@@ -113,7 +114,7 @@ const formatDate = (createdAt) => {
     return createdAtDate.toISOString().split('T')[0];
   }
 };
-
+*/
 const AllPosts = () => {
   const router = useRouter();
   const { title } = router.query;

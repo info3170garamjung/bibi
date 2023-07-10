@@ -4,7 +4,7 @@ import AppLayout from '../../../components/AppLayout';
 import { Space, Typography, Divider, Button } from 'antd';
 import React, {useCallback} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-//import { formatDate } from '../../../utils/dateUtils';
+import { formatDate } from '../../../utils/dateUtils';
 const { Text } = Typography;
 import { 
   DeleteFilled,
@@ -14,7 +14,7 @@ import {
   REMOVE_POST_REQUEST,
 } from '../../../reducers/post';
 import { setEditingStatus, showPostFormAction } from '../../../reducers/post'
-
+/*
 const formatDate = (createdAt) => {
   const now = new Date();
   const createdAtDate = new Date(createdAt);
@@ -24,7 +24,7 @@ const formatDate = (createdAt) => {
       console.error('Invalid createdAt:', createdAt);
       return 'Invalid date';
     }
-    
+
   const diffTime = Math.abs(now - createdAtDate);
   const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
   const diffHours = Math.floor(diffTime / (1000 * 60 * 60));
@@ -42,7 +42,7 @@ const formatDate = (createdAt) => {
     return createdAtDate.toISOString().split('T')[0];
   }
 };
-
+*/
 const PostDetail = () => {
   const router = useRouter();
   const { title, postid } = router.query;
