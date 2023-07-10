@@ -29,7 +29,7 @@ const id = useSelector((state) => state.user.me?.id);
     console.log("p.id:", p.id, "id:", postid);
     return p.id === postid;
   });
-/*
+
   const formatDate = (createdAt) => {
     const now = new Date();
     const createdAtDate = new Date(createdAt);
@@ -50,7 +50,7 @@ const id = useSelector((state) => state.user.me?.id);
       return createdAtDate.toISOString().split(T)[0];
     }
   };
-  */
+  
 
   const onRemovePost = useCallback(() => {
     dispatch({

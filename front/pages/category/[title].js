@@ -13,7 +13,7 @@ const CategoryTitle = () => {
   const { mainPosts } = useSelector((state) => state.post);
 
    const filteredPosts = mainPosts.filter((post) => post.category === title);
-/*
+
    const formatDate = (createdAt) => {
     const now = new Date();
     const createdAtDate = new Date(createdAt);
@@ -32,7 +32,7 @@ const CategoryTitle = () => {
       return `${diffDays} minute${diffDays > 1 ? 's' : '' }`
     }
    }
-   */
+   
   const pagination = {
     size: 'small', 
     pageSize: 5,
