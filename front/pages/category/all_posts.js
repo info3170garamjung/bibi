@@ -96,7 +96,7 @@ const formatDate = (createdAt) => {
       return 'Invalid date';
     }
 
-
+// 주석
   const diffTime = Math.abs(now - createdAtDate);
   const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
   const diffHours = Math.floor(diffTime / (1000 * 60 * 60));
