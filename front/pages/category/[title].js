@@ -76,10 +76,10 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 const { Text } = Typography;
 import Link from 'next/link';
-import { formatDate } from '../../utils/dateUtils';
-import { stripHtmlTags } from '../../utils/stripHtmlTags';
+// import { formatDate } from '../../utils/dateUtils';
+// import { stripHtmlTags } from '../../utils/stripHtmlTags';
 
-/*
+
 const stripHtmlTags = (str) => {
   if((str === null) || (str === ''))
     return false;
@@ -117,7 +117,7 @@ const formatDate = (createdAt) => {
     return createdAtDate.toISOString().split('T')[0];
   }
 };
-*/
+
 
 const CategoryTitle = () => {
   const router = useRouter();
