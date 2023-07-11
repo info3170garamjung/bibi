@@ -1,5 +1,7 @@
 
 
+
+
 export const initialState = {
   mainPosts: [
     {
@@ -139,8 +141,11 @@ export const initialState = {
   editPostError: null,
   showPostForm: false,
   selectedMenu: null,
-
+  categoryPostsLoading: false,
+  categoryPostsDone: false,
+  categoryPostsError: null,
 }
+
 
 export const ADD_POST_REQUEST = 'ADD_POST_REQUEST';
 export const ADD_POST_SUCCESS = 'ADD_POST_SUCCESS';
@@ -160,6 +165,14 @@ export const EDIT_POST_FAILURE = 'EDIT_POST_FAILURE';
 export const SET_SHOW_POST_FORM = 'SET_SHOW_POST_FORM';
 export const SELECT_MENU_ITEM = 'SELECT_MENU_ITEM';
 
+export const COUNT_CATEGORY_POSTS_REQUEST = 'COUNT_CATEGORY_POSTS_REQUEST';
+export const COUNT_CATEGORY_POSTS_SUCCESS = 'COUNT_CATEGORY_POSTS_SUCCESS';
+export const COUNT_CATEGORY_POSTS_FAILURE = 'COUNT_CATEGORY_POSTS_FAILURE';
+
+
+export const countCategoryPosts = () => ({
+  type: COUNT_CATEGORY_POSTS_REQUEST,
+});
 
 export const showPostFormAction = (show) => ({
   type: SET_SHOW_POST_FORM,
@@ -201,6 +214,26 @@ export const setSelectMenuAction = (selectedMenu) => ({
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+    case COUNT_CATEGORY_POSTS_REQUEST:
+      return {
+        ...state,
+        categoryPostsLoading: true,
+        categoryPostsDone: false,
+        categoryPostsError: null,
+      }
+    case COUNT_CATEGORY_POSTS_SUCCESS:
+      return {
+        ...state,
+        categoryPosts: action.data,
+        categoryPostsLoading: false,
+        categoryPostsDone: true,
+      };
+    case COUNT_CATEGORY_POSTS_FAILURE:
+      return {
+        ...state,
+        categoryPostsLoading: false,
+        categoryPostsError: action.error,
+      }
     case SELECT_MENU_ITEM:
       return {
         ...state,

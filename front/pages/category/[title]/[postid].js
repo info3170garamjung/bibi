@@ -37,7 +37,7 @@ const formatDate = (createdAt) => {
   } else if (diffHours < 24) {
     return `${diffHours} hour${diffHours > 1 ? 's' : ''} ago`;
   } else if (diffDays < 10) {
-    return `${diffDays} day${diffDay > 1 ? 's': ''} ago`;
+    return `${diffDays} day${diffDays > 1 ? 's': ''} ago`;
   } else {
     return createdAtDate.toISOString().split('T')[0];
   }
