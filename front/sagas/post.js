@@ -13,6 +13,10 @@ import {
   EDIT_POST_SUCCESS,
   EDIT_POST_FAILURE,
   setEditingStatus,
+  COUNT_CATEGORY_POSTS_REQUEST,
+  COUNT_CATEGORY_POSTS_SUCCESS,
+  COUNT_CATEGORY_POSTS_FAILURE,
+
 } from '../reducers/post';
 import { select } from 'redux-saga/effects';
 
@@ -127,6 +131,29 @@ function* removePost(action) {
   }
 }
 
+function* countCategoryPosts() {
+  try {
+    yield delay(1000);
+    const mainPosts = yield select((state) => state.post.mainPosts);
+    const categoryPosts = mainPosts.reduce((acc, cur) => {
+      if(!acc[cur.category]) {
+        acc[cur.category] = 0;
+      }
+      acc[cur.category]++;
+      return acc;
+    }, {});
+    yield put({
+      type: COUNT_CATEGORY_POSTS_SUCCESS,
+      data: categoryPosts,
+    });
+  } catch(err) {
+    yield put({
+      type: COUNT_CATEGORY_POSTS_FAILURE,
+      error: err.response.data,
+    })
+  }
+}
+
 function* watchAddPost() {
   yield takeLatest(ADD_POST_REQUEST, addPost);
 }
@@ -139,10 +166,16 @@ function* watchEditPost() {
   yield takeLatest(EDIT_POST_REQUEST, editPost);
 }
 
+function* watchCountCategoryPosts() {
+  yield takeLatest(COUNT_CATEGORY_POSTS_REQUEST, countCategoryPosts);
+}
+
 export default function* postSaga() {
   yield all([
     fork(watchAddPost),
     fork(watchRemovePost),
     fork(watchEditPost),
+    fork(watchCountCategoryPosts),
   ]);
 }
+

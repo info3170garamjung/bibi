@@ -1,14 +1,15 @@
 
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
 import Link from 'next/link';
 import { useDispatch, useSelector } from 'react-redux';
-import { showPostFormAction } from '../reducers/post';
+import { showPostFormAction, countCategoryPosts } from '../reducers/post';
 import { categories } from './categories';
 import GlobalStyles from './GlobalStyles';
 import { Divider } from 'antd';
+
 
 const MenuContainer = styled.div`
   // menu-container 스타일
@@ -42,9 +43,19 @@ const MenuList = styled.ul`
 `;
 
 const Category = () => {
-  const { showPostForm } = useSelector((state) => state.post);
+  const { showPostForm, categoryPosts } = useSelector((state) => state.post);
   const router = useRouter();
   const dispatch = useDispatch();
+
+  
+
+  useEffect(() => {
+    dispatch(countCategoryPosts());
+  }, [dispatch]);
+
+// 먼저 categoryPosts의 모든 값을 합산합니다.
+const totalPosts = categoryPosts ? Object.values(categoryPosts).reduce((a, b) => a + b, 0) : 0;
+
 
   const handleCategoryClick = (category) => {
     if (category.title === 'All') {
@@ -80,6 +91,7 @@ const Category = () => {
                   ) : (
                     category.title
                   )}
+                {category.title === "All" ? ` (${totalPosts})` : (categoryPosts && categoryPosts[category.title] ? ` (${categoryPosts[category.title]})` : ' (0)')}
                 </MenuItem>
               ))}
             </SubmenuItems>
