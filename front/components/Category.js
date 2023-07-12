@@ -42,6 +42,11 @@ const MenuList = styled.ul`
   list-style-type: none; // 목록 동그라미 제거
 `;
 
+const StyledDivider = styled.div`
+border-top: 1px solid #e8e8e8;
+margin: 16px 0;
+`
+
 const Category = () => {
   const { showPostForm, categoryPosts } = useSelector((state) => state.post);
   const router = useRouter();
@@ -76,7 +81,7 @@ const totalPosts = categoryPosts ? Object.values(categoryPosts).reduce((a, b) =>
       <MenuList className="menu">
           <li className="submenu" style={{marginTop: '2.5rem'}}>
             <SubmenuTitle className="submenu-title" style={{ fontFamily: 'Bitter', fontSize: '1.1rem' }}>Tag list</SubmenuTitle>
-            <Divider />
+            <StyledDivider />
             <SubmenuItems className="submenu-items" >
               {categories.map((category) => (
                 <MenuItem

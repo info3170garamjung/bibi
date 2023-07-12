@@ -6,10 +6,15 @@ import { Typography, Divider } from 'antd';
 import React from 'react';
 import { useSelector } from 'react-redux';
 const { Text } = Typography;
+import styled from 'styled-components';
 import Link from 'next/link';
 // import { formatDate } from '../../utils/dateUtils';
 // import { stripHtmlTags } from '../../utils/stripHtmlTags';
 
+const StyledDividerPt3 = styled.div`
+border-top: 1px solid #e8e8e8;
+margin: 16px 0;
+`
 
 const stripHtmlTags = (str) => {
   if((str === null) || (str === ''))
@@ -76,7 +81,7 @@ const CategoryTitle = () => {
                 </div>
                 <Text type="secondary" style={{ fontSize: '0.9rem'}}>{formatDate(post.createdAt)}</Text>
                 </div>
-                <Divider />
+                <StyledDividerPt3 />
                 </>
             ))  
             : <div>No Posts found.</div>}
