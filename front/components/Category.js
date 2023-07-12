@@ -8,7 +8,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { showPostFormAction, countCategoryPosts } from '../reducers/post';
 import { categories } from './categories';
 import GlobalStyles from './GlobalStyles';
-import { Divider } from 'antd';
 
 
 const MenuContainer = styled.div`
@@ -25,6 +24,11 @@ const MenuItem = styled.li`
   &:hover {
     font-weight: bold;
   }
+
+  @media (max-width: 768px) {
+    margin-right: 12px; // 가로 간격 조정
+    margin-bottom: 10px; // 세로 간격 조정
+  }
 `;
 
 
@@ -36,11 +40,24 @@ const SubmenuItems = styled.ul`
   // submenu-items 스타일
   list-style-type: none;
   padding-left: 0; 
+
+  // xs size
+  @media (max-width: 768px) {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
 `;
 const MenuList = styled.ul`
   // menu 스타일
   list-style-type: none; // 목록 동그라미 제거
 `;
+
+const StyledDivider = styled.div`
+border-top: 1px solid #e8e8e8;
+margin: 16px 0;
+`
 
 const Category = () => {
   const { showPostForm, categoryPosts } = useSelector((state) => state.post);
@@ -76,7 +93,7 @@ const totalPosts = categoryPosts ? Object.values(categoryPosts).reduce((a, b) =>
       <MenuList className="menu">
           <li className="submenu" style={{marginTop: '2.5rem'}}>
             <SubmenuTitle className="submenu-title" style={{ fontFamily: 'Bitter', fontSize: '1.1rem' }}>Tag list</SubmenuTitle>
-            <Divider />
+            <StyledDivider />
             <SubmenuItems className="submenu-items" >
               {categories.map((category) => (
                 <MenuItem
